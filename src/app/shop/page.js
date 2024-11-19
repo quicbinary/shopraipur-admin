@@ -1,29 +1,28 @@
-// /app/shops/page.js
 "use client";
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import Image from 'next/image';
-import { FaTrashAlt } from 'react-icons/fa'; // Trash icon for delete action
-import Link from 'next/link'; // Import Link for navigation
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Image from "next/image";
+import { FaTrashAlt, FaMapMarkerAlt } from "react-icons/fa"; // Import React Icons for trash and location
+import Link from "next/link"; // Import Link for navigation
 
 const Shops = () => {
   const [shops, setShops] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [shopsPerPage] = useState(8);
-  const API_KEY = '98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8'; 
+  const API_KEY = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
 
   useEffect(() => {
     const fetchShops = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/shops/', {
+        const response = await axios.get("http://localhost:3001/api/shops/", {
           headers: { kuchi: `${API_KEY}` },
         });
-        setShops(response.data); 
+        setShops(response.data);
       } catch (error) {
-        console.error('Error fetching shops:', error);
+        console.error("Error fetching shops:", error);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -66,24 +65,29 @@ const Shops = () => {
     <div className="bg-gray-100 h-screen">
       <div className="flex-grow p-10">
         <Header />
-        <div className="bg-white shadow-md rounded-lg p-10 mt-8">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Shops List</h3>
+        <div className="bg-white shadow-md rounded-lg p-6 mt-8">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            Shops List
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {currentShops.map((shop) => (
-              <div key={shop._id} className="bg-white p-4 rounded-lg shadow">
+              <div
+                key={shop._id}
+                className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg items-center flex flex-col transition-shadow duration-300"
+              >
                 <Link href={`/shopdetails/${shop._id}`}>
-                  <Image src={shop.shopLogo} alt="Shop Logo" className="rounded-lg mb-4" width={200} height={120} />
+                  <Image
+                    src={shop.shopLogo || "https://via.placeholder.com/150"}
+                    alt="Shop Logo"
+                    className="rounded-lg mb-4"
+                    width={250}
+                    height={200}
+                  />
                 </Link>
                 <h3 className="text-lg font-semibold">{shop.shopName}</h3>
                 <div className="text-gray-500 flex items-center mt-2">
-                  <i className="fas fa-map-marker-alt text-red-500 mr-2"></i>
+                  <FaMapMarkerAlt className="text-red-500 mr-2" />
                   <span>{shop.area}</span>
-                </div>
-                <div className="mt-3">
-                  <button className="flex items-center text-red-500 hover:text-red-700">
-                    <FaTrashAlt />
-                    <span className="ml-2">Delete</span>
-                  </button>
                 </div>
               </div>
             ))}
@@ -91,8 +95,12 @@ const Shops = () => {
           {shops.length > shopsPerPage && (
             <div className="flex justify-center items-center mt-8 space-x-2">
               <button
-                className={`px-3 py-1 border rounded-md ${currentPage === 1 ? "cursor-not-allowed opacity-50" : ""}`}
-                onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
+                className={`px-3 py-1 border rounded-md ${
+                  currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
+                }`}
+                onClick={() =>
+                  currentPage > 1 && setCurrentPage(currentPage - 1)
+                }
                 disabled={currentPage === 1}
               >
                 Prev
@@ -100,16 +108,26 @@ const Shops = () => {
               {pageNumbers.map((number, index) => (
                 <button
                   key={index}
-                  className={`px-3 py-1 border rounded ${currentPage === number ? 'bg-gray-300' : 'bg-gray-200'}`}
-                  onClick={() => paginate(number === "..." ? currentPage : number)}
+                  className={`px-3 py-1 border rounded ${
+                    currentPage === number ? "bg-gray-300" : "bg-gray-200"
+                  }`}
+                  onClick={() =>
+                    paginate(number === "..." ? currentPage : number)
+                  }
                   disabled={number === "..."}
                 >
                   {number}
                 </button>
               ))}
               <button
-                className={`px-3 py-1 border rounded-md ${currentPage === totalPages ? "cursor-not-allowed opacity-50" : ""}`}
-                onClick={() => currentPage < totalPages && setCurrentPage(currentPage + 1)}
+                className={`px-3 py-1 border rounded-md ${
+                  currentPage === totalPages
+                    ? "cursor-not-allowed opacity-50"
+                    : ""
+                }`}
+                onClick={() =>
+                  currentPage < totalPages && setCurrentPage(currentPage + 1)
+                }
                 disabled={currentPage === totalPages}
               >
                 Next
@@ -125,19 +143,19 @@ const Shops = () => {
 export default Shops;
 
 function Header() {
-    return (
-      <div className="flex justify-between items-center bg-white p-5 rounded-lg shadow-lg mb-8 w-full">
-        <h1 className="text-2xl font-semibold text-gray-800">Shops</h1>
-        <div className="flex items-center space-x-2">
-          <Image
-            src="/assets/logo.jpg"
-            alt="Profile"
-            width={150}
-            height={300}
-            className="w-10 h-10 rounded-full"
-          />
-          <span className="font-semibold text-gray-800">Nikhil Mitra</span>
-        </div>
+  return (
+    <div className="flex justify-between items-center bg-white p-5 rounded-lg shadow-lg mb-8 w-full">
+      <h1 className="text-2xl font-semibold text-gray-800">Shops</h1>
+      <div className="flex items-center space-x-2">
+        <Image
+          src="/assets/logo.jpg"
+          alt="Profile"
+          width={150}
+          height={300}
+          className="w-10 h-10 rounded-full"
+        />
+        <span className="font-semibold text-gray-800">Nikhil Mitra</span>
       </div>
-    );
-  }
+    </div>
+  );
+}
