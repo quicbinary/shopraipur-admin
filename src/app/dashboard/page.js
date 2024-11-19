@@ -5,7 +5,6 @@ export default function Dashboard() {
 
   return (
     <div className="flex bg-gray-100 min-h-screen">
-      
 
       {/* Main Content */}
       <div className="flex-1 p-10 flex flex-col items-center rounded-lg">
