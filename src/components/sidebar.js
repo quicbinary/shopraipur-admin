@@ -24,7 +24,7 @@ const Sidebar = () => {
 
   return (
     <div className="bg-purple-600 text-white min-h-screen p-6 lg:w-64 lg:sticky top-0">
-      <div className="text-2xl font-bold mb-10">MARTPURAM</div>
+      <div className="text-2xl font-bold mb-10">Shop Raipur</div>
       <nav className="flex flex-col space-y-2">
         {menuItems.map((item) => (
           <button
