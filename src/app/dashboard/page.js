@@ -5,7 +5,6 @@ export default function Dashboard() {
 
   return (
     <div className="flex bg-gray-100 min-h-screen">
-      
 
       {/* Main Content */}
       <div className="flex-1 p-10 flex flex-col items-center rounded-lg">
@@ -13,7 +12,7 @@ export default function Dashboard() {
         <Header />
 
         {/* Cards Container */}
-        <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-7xl">
+        <div className="bg-white p-10 rounded-lg shadow-lg w-full ">
           <div className="flex flex-col gap-8 items-center">
             <StatsCard
               title="Total Users (LOGIN)"
@@ -48,7 +47,7 @@ export default function Dashboard() {
 
 function Header() {
   return (
-    <div className="flex justify-between items-center bg-white p-5 rounded-lg shadow-lg mb-8 w-full max-w-6xl">
+    <div className="flex justify-between items-center bg-white p-5 rounded-lg shadow-lg mb-8 w-full">
       <h1 className="text-2xl font-semibold">Dashboard</h1>
       <div className="flex items-center space-x-2">
         <Image
