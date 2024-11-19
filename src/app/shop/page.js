@@ -72,7 +72,7 @@ const Shops = () => {
             {currentShops.map((shop) => (
               <div key={shop._id} className="bg-white p-4 rounded-lg shadow">
                 <Link href={`/shopdetails/${shop._id}`}>
-                  <Image src={shop.shopLogo} alt="Shop Logo" className="rounded-lg mb-4" width={256} height={144} />
+                  <Image src={shop.shopLogo} alt="Shop Logo" className="rounded-lg mb-4" width={200} height={120} />
                 </Link>
                 <h3 className="text-lg font-semibold">{shop.shopName}</h3>
                 <div className="text-gray-500 flex items-center mt-2">
