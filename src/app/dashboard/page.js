@@ -47,7 +47,7 @@ export default function Dashboard() {
 
 function Header() {
   return (
-    <div className="flex justify-between items-center bg-white py-6 px-10 rounded-lg shadow-lg mb-8 w-full">
+    <div className="flex justify-between items-center bg-white p-5 rounded-lg shadow-lg mb-8 w-full max-w-6xl">
       <h1 className="text-2xl font-semibold">Dashboard</h1>
       <div className="flex items-center space-x-2">
         <Image
