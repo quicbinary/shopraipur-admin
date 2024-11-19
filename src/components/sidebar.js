@@ -7,12 +7,12 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   const menuItems = [
-    { path: "/dashboard", icon: "fa-solid fa-house", label: "Dashboard" },
+    { path: "/Dashboard", icon: "fa-solid fa-house", label: "Dashboard" },
     { path: "/categories", icon: "fa-solid fa-border-all", label: "Categories" },
     { path: "/approval", icon: "fa-regular fa-circle-check", label: "Approval" },
     { path: "/shop", icon: "fa-solid fa-shop", label: "Shops" },
     { path: "/product", icon: "fa-solid fa-clipboard-list", label: "Products" },
-    { path: "/admin", icon: "fa-solid fa-user-tie", label: "Admin" },
+    { path: "/Admin", icon: "fa-solid fa-user-tie", label: "Admin" },
     { path: "/ads", icon: "fa-solid fa-arrow-trend-up", label: "Ads" },
     { path: "/profile", icon: "fa-solid fa-circle-user", label: "My Profile" },
     { path: "/view", icon: "fa-solid fa-chart-line", label: "Views" },
