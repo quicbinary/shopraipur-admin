@@ -8,21 +8,6 @@ export default function CategoryList() {
   return (
     <div className="bg-gray-100" data-menu-open={menuOpen}>
       <div className="flex">
-        {/* Toggle Button for Small Screens */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="text-white bg-purple-600 p-3 rounded-md fixed top-4 left-4 lg:hidden z-50"
-        >
-          ☰ Menu
-        </button>
-
-        {/* Full-Screen Overlay */}
-        {menuOpen && (
-          <div
-            onClick={() => setMenuOpen(false)}
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          ></div>
-        )}
 
         {/* Main Content */}
         <div className="flex-grow p-8">

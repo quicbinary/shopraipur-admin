@@ -1,7 +1,21 @@
 import React from "react";
-
+import Image from "next/image";
 function Page() {
   return (
+    <div>
+      <div className="flex justify-between items-center bg-white py-6 px-10 rounded-lg shadow-lg mb-8 w-full">
+      <h1 className="text-2xl font-semibold">Dashboard</h1>
+      <div className="flex items-center space-x-2">
+        <Image
+          src="/assets/logo.jpg"
+          alt="Profile"
+          width={150} 
+          height={300}
+          className="w-10 h-10 rounded-full"
+        />
+        <span>Nikhil Mitra</span>
+      </div>
+    </div>
     <div className="bg-white p-6 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-6">Admin</h2>
       <table className="w-full text-left border-collapse">
@@ -31,7 +45,8 @@ function Page() {
           </tr>
         </tbody>
       </table>
-
+    </div>
+    <div>
       <div className="bg-white p-6 rounded-lg shadow-lg mt-6">
         <h3 className="text-xl font-semibold text-purple-600 mb-4">Add Admin</h3>
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -110,7 +125,9 @@ function Page() {
           </div>
         </form>
       </div>
+      </div>
     </div>
+    
   );
 }
 
