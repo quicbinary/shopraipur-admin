@@ -1,4 +1,3 @@
-// components/Sidebar.js
 "use client"; // Enables hooks in client components
 import { useRouter, usePathname } from "next/navigation";
 
@@ -23,7 +22,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="bg-purple-600 text-white min-h-screen p-6 lg:w-64 lg:sticky top-0">
+    <div className="bg-purple-600 text-white min-h-screen w-64 p-6 sticky top-0">
       <div className="text-2xl font-bold mb-10">Shop Raipur</div>
       <nav className="flex flex-col space-y-2">
         {menuItems.map((item) => (
