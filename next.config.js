@@ -1,11 +1,8 @@
-const path = require("path");
+// next.config.js
 
 module.exports = {
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "@": path.resolve(__dirname, "src"),
-    };
-    return config;
-  },
-};
+    images: {
+      domains: ['picsum.photos', 'via.placeholder.com'], // Add the external image domain
+    },
+  };
+  
