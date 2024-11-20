@@ -20,7 +20,7 @@ export default function ApprovalPage() {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         />
       </Head>
-      <div className="bg-gray-100 flex flex-col">
+      <div className="bg-gray-100 p-10 gap-4">
         <Header />
         <ShopApproval />
         <Productapproval/>

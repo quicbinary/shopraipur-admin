@@ -15,7 +15,7 @@ const Shops = () => {
   useEffect(() => {
     const fetchShops = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/shops/", {
+        const response = await axios.get("http://localhost:3001/api/shops?isApproved=true", {
           headers: { kuchi: `${API_KEY}` },
         });
         setShops(response.data);
