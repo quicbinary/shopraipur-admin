@@ -42,48 +42,49 @@ export default function AdsApproval() {
           </div>
         </div>
         {/* Homepage Banner Section */}
-        <h2 className="text-xl font-semibold mb-4">Homepage Banner ADS</h2>
-        <div className="grid grid-cols-1 gap-4">
-          <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
-            <div className="flex items-center gap-4">
-            <Image
-          src="/assets/banner.png"
-          alt="User"
-          width={200}
-          height={400}
-          className="w-60 h-50 mt-10 rounded-md border"
-        />
-              <div className="flex-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Select Date</label>
-                <div className=" right-4 flex gap-4">
-                  <input
-                    type="date"
-                    className="w-1/2 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  />
-                  <input
-                    type="date"
-                    className="w-1/2 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  />
-                </div>
-              </div>
-            </div>
-            {/* Action Buttons */}
-            <div className="flex space-x-8 items-center ml-96">
-              <button className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-purple-600">
-                View
-              </button>
-              <button className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-purple-600">
-                Approve
-              </button>
-              <button className="px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-600">
-                Delete
-              </button>
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600">
-                Download
-              </button>
-            </div>
-          </div>
+<h2 className="text-xl font-semibold mb-4">Homepage Banner ADS</h2>
+<div className="grid grid-cols-1 gap-4">
+  <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
+    <div className="flex justify-between items-start">
+      <Image
+        src="/assets/banner.png"
+        alt="User"
+        width={200}
+        height={400}
+        className="w-60 h-50 mt-10 rounded-md border"
+      />
+      <div className="flex-2 mt-12">
+        <label className="block text-sm font-medium text-gray-700 mb-1">Select Date</label>
+        <div className="flex gap-4">
+          <input
+            type="date"
+            className="w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            type="date"
+            className="w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
         </div>
+      </div>
+    </div>
+    {/* Action Buttons */}
+    <div className="ml-80 gap-8 flex">
+      <button className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-purple-600">
+        View
+      </button>
+      <button className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-purple-600">
+        Approve
+      </button>
+      <button className="px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-600">
+        Delete
+      </button>
+      <button className="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600">
+        Download
+      </button>
+    </div>
+  </div>
+</div>
+</div>
         {/* Pagination */}
         <div className="flex justify-center mt-6">
           <nav className="flex gap-2">
@@ -96,6 +97,5 @@ export default function AdsApproval() {
           </nav>
         </div>
       </div>
-    </div>
   );
 }
