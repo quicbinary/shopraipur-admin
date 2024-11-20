@@ -20,7 +20,7 @@ export default function CategoryList() {
     const fetchCategories = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get("http://192.168.1.7:3001/api/categories/", {
+        const response = await axios.get("http://localhost:3001/api/categories/", {
           headers: {
             kuchi: `${API_KEY}`, // Adding the API key in the Authorization header
           },
