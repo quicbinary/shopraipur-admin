@@ -65,6 +65,26 @@ export default function ProductApproval() {
     }
   };
 
+  const handleDelete = async (productId) => {
+    const confirmDeletion = confirm(
+      "Are you sure you want to delete this product? This action cannot be undone."
+    );
+    if (!confirmDeletion) return;
+  
+    try {
+      await axios.delete(`http://localhost:3001/api/products/${productId}`, {
+        headers: {
+          kuchi: `${API_KEY}`,
+        },
+      });
+      alert("Product deleted successfully!");
+      fetchProducts(); // Refresh product list after deletion
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      alert("Failed to delete the product.");
+    }
+  };
+
   // Handle filter change
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -85,7 +105,7 @@ export default function ProductApproval() {
   };
 
   return (
-    <section className="p-8 bg-gray-100 rounded-lg shadow-lg mt-8">
+    <>
       <div className="bg-white p-8 rounded-lg shadow-lg">
         <h2 className="text-lg font-bold mb-4">Product Approval</h2>
 
@@ -210,7 +230,7 @@ export default function ProductApproval() {
                     >
                       View
                     </button>
-                    <button className="px-6 py-2 bg-purple-500 text-white rounded-lg">
+                    <button className="px-6 py-2 bg-purple-500 text-white rounded-lg" onClick={() => handleDelete(product._id)}>
                       Delete
                     </button>
                   </div>
@@ -223,11 +243,10 @@ export default function ProductApproval() {
         </div>
       </div>
 
-      {/* Product Modal */}
       {selectedProduct && (
         <ProductModal product={selectedProduct} closeModal={closeModal} />
       )}
-    </section>
+      </>
   );
 }
 

@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { MdLocationOn } from "react-icons/md";
-import { AiOutlineClose } from 'react-icons/ai'; // Import cross icon from React Icons
-
+import { AiOutlineClose } from "react-icons/ai"; // Import cross icon from React Icons
 
 export default function ShopApproval() {
   const [shops, setShops] = useState([]);
@@ -13,8 +12,12 @@ export default function ShopApproval() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-const [selectedShop, setSelectedShop] = useState(null);
+  const [selectedShop, setSelectedShop] = useState(null);
 
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  console.log(startDate, endDate)
 
   const API_KEY = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
 
@@ -23,7 +26,7 @@ const [selectedShop, setSelectedShop] = useState(null);
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:3001/api/shops?isApproved=false&page=${currentPage}`,
+        `http://localhost:3001/api/shops?isApproved=false&page=${currentPage}&startDate=${startDate}&endDate=${endDate}`,
         {
           headers: {
             kuchi: `${API_KEY}`,
@@ -37,20 +40,23 @@ const [selectedShop, setSelectedShop] = useState(null);
       setLoading(false);
     }
   };
+  
 
   // Fetch shops on initial render and when the page changes
   useEffect(() => {
     fetchShops();
-  }, [currentPage]);
-
+  }, [currentPage, startDate, endDate]); // Added startDate and endDate as dependencies
+  
   const approveShop = async (shopId) => {
     // Ask for confirmation before approving the shop
-    const isConfirmed = window.confirm("Are you sure you want to approve this shop?");
-    
+    const isConfirmed = window.confirm(
+      "Are you sure you want to approve this shop?"
+    );
+
     if (!isConfirmed) {
       return; // If not confirmed, do nothing
     }
-    
+
     try {
       // Sending PUT request to approve the shop
       const response = await axios.put(
@@ -64,7 +70,7 @@ const [selectedShop, setSelectedShop] = useState(null);
           },
         }
       );
-    
+
       if (response.status === 200) {
         // Update the local state to reflect the approval
         setShops((prevShops) =>
@@ -72,10 +78,10 @@ const [selectedShop, setSelectedShop] = useState(null);
             shop._id === shopId ? { ...shop, isApproved: true } : shop
           )
         );
-    
+
         // Show alert to confirm the approval
         alert("Shop approved successfully!");
-  
+
         // Refetch the list of shops after approval
         fetchShops(); // Now fetches updated shop data
       }
@@ -97,7 +103,7 @@ const [selectedShop, setSelectedShop] = useState(null);
     setSelectedShop(shop);
     setIsModalOpen(true);
   };
-  
+
   return (
     <div className="p-6 w-full bg-white rounded-xl">
       {/* Filter Section */}
@@ -105,30 +111,40 @@ const [selectedShop, setSelectedShop] = useState(null);
         <h2 className="text-lg font-semibold mb-4">Filter</h2>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-10">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Select Category</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Select Category
+            </label>
             <select className="mt-1 block w-full p-2 border border-gray-300 rounded-lg">
               <option>Select Category</option>
             </select>
           </div>
           <div className="grid grid-cols-2 gap-8">
             <div>
-              <label className="block text-sm font-medium text-gray-700">From</label>
+              <label className="block text-sm font-medium text-gray-700">
+                From
+              </label>
               <input
                 type="date"
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">To</label>
+              <label className="block text-sm font-medium text-gray-700">
+                To
+              </label>
               <input
-                type="date"
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
-              />
+  type="date"
+  className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+  value={endDate}
+  onChange={(e) => setEndDate(e.target.value)}
+/>
             </div>
           </div>
         </div>
       </div>
-  
+
       {/* Shop Approval Section */}
       <h2 className="text-lg font-bold mb-4">Shop Approval</h2>
       {shops.length > 0 ? (
@@ -155,7 +171,7 @@ const [selectedShop, setSelectedShop] = useState(null);
                 </div>
               </div>
             </div>
-  
+
             <div className="flex space-x-10 items-center justify-between">
               <button
                 className="px-10 py-2 bg-purple-500 text-white rounded-lg"
@@ -178,11 +194,11 @@ const [selectedShop, setSelectedShop] = useState(null);
           </div>
         ))
       ) : (
-        <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+        <div className="bg-white p-6 rounded-lg text-center">
           No shops pending approval
         </div>
       )}
-  
+
       {/* Pagination */}
       <div className="flex justify-center space-x-2 mt-6">
         <button
@@ -202,12 +218,13 @@ const [selectedShop, setSelectedShop] = useState(null);
           &gt;
         </button>
       </div>
-  
+
       {/* Modal */}
-      {isModalOpen && <Modal shop={selectedShop} onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <Modal shop={selectedShop} onClose={() => setIsModalOpen(false)} />
+      )}
     </div>
   );
-  
 }
 
 const Modal = ({ shop, onClose }) => {
@@ -222,7 +239,6 @@ const Modal = ({ shop, onClose }) => {
         >
           <AiOutlineClose size={24} />
         </button>
-        
 
         <Image
           src={shop.shopLogo || "/assets/placeholder.png"}
@@ -231,21 +247,35 @@ const Modal = ({ shop, onClose }) => {
           height={120}
           className="rounded-lg mb-4 mx-auto"
         />
-        
-        <h3 className="text-2xl font-semibold mb-4 text-gray-800">{shop.shopName}</h3>
-        <div className="text-gray-600 mb-4">
-          <p><strong>Location:</strong> {shop.area || "N/A"}</p>
-          <p><strong>Address:</strong> {shop.address || "N/A"}</p>
-          <p><strong>Owner Name:</strong> {shop.ownerName || "N/A"}</p>
-          <p><strong>Phone Number:</strong> {shop.phoneNumber || "N/A"}</p>
-          <p><strong>GST:</strong> {shop.gst || "N/A"}</p>
-          <p><strong>Product Limit:</strong> {shop.productLimit || "N/A"}</p>
-          <p><strong>Approval Status:</strong> {shop.isApproved ? "Approved" : "Pending"}</p>
-        </div>
 
-      
+        <h3 className="text-2xl font-semibold mb-4 text-gray-800">
+          {shop.shopName}
+        </h3>
+        <div className="text-gray-600 mb-4">
+          <p>
+            <strong>Location:</strong> {shop.area || "N/A"}
+          </p>
+          <p>
+            <strong>Address:</strong> {shop.address || "N/A"}
+          </p>
+          <p>
+            <strong>Owner Name:</strong> {shop.ownerName || "N/A"}
+          </p>
+          <p>
+            <strong>Phone Number:</strong> {shop.phoneNumber || "N/A"}
+          </p>
+          <p>
+            <strong>GST:</strong> {shop.gst || "N/A"}
+          </p>
+          <p>
+            <strong>Product Limit:</strong> {shop.productLimit || "N/A"}
+          </p>
+          <p>
+            <strong>Approval Status:</strong>{" "}
+            {shop.isApproved ? "Approved" : "Pending"}
+          </p>
+        </div>
       </div>
     </div>
   );
 };
-

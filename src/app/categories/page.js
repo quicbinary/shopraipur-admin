@@ -26,6 +26,7 @@ export default function CategoryList() {
           },
         });
         setCategories(response.data); // Update the state with the fetched categories
+        console.log(response.data)
       } catch (error) {
         console.error("Error fetching categories:", error);
       }

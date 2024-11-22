@@ -20,7 +20,7 @@ export default function ApprovalPage() {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         />
       </Head>
-      <div className="bg-gray-100 p-10 gap-4">
+      <div className="bg-gray-100 p-10 space-y-10">
         <Header />
         <ShopApproval />
         <Productapproval/>
@@ -33,20 +33,20 @@ export default function ApprovalPage() {
 
 
 // Header Component (reused from Dashboard)
-function Home() {
-  return (
-    <div className="flex justify-between items-center bg-white p-5 rounded-lg shadow-lg mb-8 w-full">
-      <h1 className="text-2xl font-semibold text-gray-800">Category</h1>
-      <div className="flex items-center space-x-2">
-        <Image
-          src="/assets/logo.jpg"
-          alt="Profile"
-          width={150}
-          height={300}
-          className="w-10 h-10 rounded-full"
-        />
-        <span className="font-semibold text-gray-800">Nikhil Mitra</span>
-      </div>
-    </div>
-  );
-}
+// function Home() {
+//   return (
+//     <div className="flex justify-between items-center bg-white p-5 rounded-lg shadow-lg mb-8 w-full">
+//       <h1 className="text-2xl font-semibold text-gray-800">Category</h1>
+//       <div className="flex items-center space-x-2">
+//         <Image
+//           src="/assets/logo.jpg"
+//           alt="Profile"
+//           width={150}
+//           height={300}
+//           className="w-10 h-10 rounded-full"
+//         />
+//         <span className="font-semibold text-gray-800">Nikhil Mitra</span>
+//       </div>
+//     </div>
+//   );
+// }
