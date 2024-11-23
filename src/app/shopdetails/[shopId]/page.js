@@ -172,7 +172,7 @@ export default function ShopDetails() {
                     <tr className="border-b" key={product._id}>
                       <td className="p-4">
                         <Image
-                          src={product.productImage}  // Assuming the image is under the field 'productImage'
+                          src={product.productImages[0]}  // Assuming the image is under the field 'productImage'
                           alt="Product Image"
                           width={80}
                           height={80}
