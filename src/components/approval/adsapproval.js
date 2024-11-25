@@ -1,48 +1,61 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt } from "react-icons/fa";
 
 export default function AdsApproval() {
   const [adType, setAdType] = useState("Banner Ad");
   const [ads, setAds] = useState([]);
   const apiKey = "your-api-key-here"; // Replace with your actual API key
+  const [fromDate, setFromDate] = useState("");
+const [toDate, setToDate] = useState("");
 
   // Fetch ads data based on selected adType
   const fetchAds = async () => {
     if (adType) {
       try {
-        const response = await axios.get(`http://localhost:3001/api/ads?adType=${adType}&isApproved=false`, {
-          headers: {
-            "kuchi": `98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8`, // Set the API key in the Authorization header
-          },
-        });
+        const queryParams = new URLSearchParams({
+          adType,
+          isApproved: "false",
+          fromDate, // Include fromDate in the query
+          toDate,   // Include toDate in the query
+        }).toString();
+  
+        const response = await axios.get(
+          `http://localhost:3001/api/ads?${queryParams}`,
+          {
+            headers: {
+              kuchi: `98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8`,
+            },
+          }
+        );
         setAds(response.data);
       } catch (error) {
         console.error("Error fetching ads data", error);
       }
     }
   };
+  
 
   useEffect(() => {
-    // Trigger fetchAds on page reload or when adType changes
     fetchAds();
-  }, [adType]); // dependency on adType to re-fetch when it changes
+  }, [adType, fromDate, toDate]);
+  
 
   const handleDateChange = (adId, field, value) => {
     // Update the date for the ad when the date input changes
     setAds((prevAds) =>
-      prevAds.map((ad) =>
-        ad._id === adId ? { ...ad, [field]: value } : ad
-      )
+      prevAds.map((ad) => (ad._id === adId ? { ...ad, [field]: value } : ad))
     );
   };
 
   const handleApprove = async (adId) => {
     // Ask for confirmation before approving the ad
-    const isConfirmed = window.confirm("Are you sure you want to approve this ad?");
-    
+    const isConfirmed = window.confirm(
+      "Are you sure you want to approve this ad?"
+    );
+
     if (isConfirmed) {
       try {
         // Update the local state to reflect the approval
@@ -50,23 +63,23 @@ export default function AdsApproval() {
           ad._id === adId ? { ...ad, isApproved: true } : ad
         );
         setAds(updatedAds);
-  
+
         // Show an alert when the ad is approved
         alert("Ad Approved!");
-  
+
         // Send the approval request to the backend
         await axios.put(
           `http://localhost:3001/api/ads/${adId}`,
           { isApproved: true },
           {
             headers: {
-              "kuchi": `98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8`, // API key in Authorization header
+              kuchi: `98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8`, // API key in Authorization header
             },
           }
         );
-  
+
         // Refresh the ads after approval
-        fetchAds();  // Trigger fetchAds again to update the list of ads
+        fetchAds(); // Trigger fetchAds again to update the list of ads
       } catch (error) {
         console.error("Error approving ad", error);
       }
@@ -75,20 +88,19 @@ export default function AdsApproval() {
 
   const handleDelete = async (adId) => {
     // Ask for confirmation before deleting the ad
-    const isConfirmed = window.confirm("Are you sure you want to delete this ad?");
-    
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this ad?"
+    );
+
     if (isConfirmed) {
       try {
         // Send the delete request to the backend
-        await axios.delete(
-          `http://localhost:3001/api/ads/${adId}`,
-          {
-            headers: {
-              "kuchi": `98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8`, // API key in Authorization header
-            },
-          }
-        );
-        
+        await axios.delete(`http://localhost:3001/api/ads/${adId}`, {
+          headers: {
+            kuchi: `98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8`, // API key in Authorization header
+          },
+        });
+
         // Remove the deleted ad from the local state
         setAds((prevAds) => prevAds.filter((ad) => ad._id !== adId));
 
@@ -102,23 +114,22 @@ export default function AdsApproval() {
 
   const handleDownload = (url, type) => {
     const link = document.createElement("a");
-  
+
     // Set the href to the file URL
     link.href = url;
-  
+
     // Extract the file name from the URL (if applicable)
     link.download = url.substring(url.lastIndexOf("/") + 1);
-  
+
     // Append the link to the document body to enable the click action
     document.body.appendChild(link);
-  
+
     // Programmatically click the link to trigger the download
     link.click();
-  
+
     // Clean up: remove the link from the document body
     document.body.removeChild(link);
   };
-  
 
   return (
     <div className="pt-10">
@@ -133,13 +144,35 @@ export default function AdsApproval() {
             <select
               value={adType}
               onChange={(e) => setAdType(e.target.value)}
-             
               className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
               <option value="Banner Ad">Homepage Banner</option>
               <option value="Story Ad">Story Ad</option>
               <option value="Shorts Ad">Shorts Ad</option>
             </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              From
+            </label>
+            <input
+  type="date"
+  className="w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+  value={fromDate}
+  onChange={(e) => setFromDate(e.target.value)}
+/>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              To
+            </label>
+            <input
+  type="date"
+  className="w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+  value={toDate}
+  onChange={(e) => setToDate(e.target.value)}
+/>
           </div>
         </div>
 
@@ -156,7 +189,10 @@ export default function AdsApproval() {
             <div className="grid grid-cols-1 gap-4">
               {ads.length > 0 ? (
                 ads.map((ad) => (
-                  <div key={ad._id} className="border border-gray-300 rounded-lg p-4 bg-gray-50">
+                  <div
+                    key={ad._id}
+                    className="border border-gray-300 rounded-lg p-4 bg-gray-50"
+                  >
                     <div className="flex justify-between items-center">
                       {ad.type === "Video" ? (
                         <div className="w-40 h-54">
@@ -190,13 +226,17 @@ export default function AdsApproval() {
                         >
                           Approve
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleDelete(ad._id)}
                           className="px-4 py-3 bg-purple-500 text-white rounded-md shadow hover:bg-red-600"
                         >
-                          <FaTrashAlt /> {/* Replace with React icon for delete */}
+                          <FaTrashAlt />{" "}
+                          {/* Replace with React icon for delete */}
                         </button>
-                        <button  onClick={() => handleDownload(ad.url, ad.type)} className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-blue-600">
+                        <button
+                          onClick={() => handleDownload(ad.url, ad.type)}
+                          className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-blue-600"
+                        >
                           Download
                         </button>
                       </div>
@@ -209,8 +249,16 @@ export default function AdsApproval() {
                           <input
                             type="date"
                             className="w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-                            value={ad.startDate ? ad.startDate.slice(0, 10) : ""}
-                            onChange={(e) => handleDateChange(ad._id, 'startDate', e.target.value)}
+                            value={
+                              ad.startDate ? ad.startDate.slice(0, 10) : ""
+                            }
+                            onChange={(e) =>
+                              handleDateChange(
+                                ad._id,
+                                "startDate",
+                                e.target.value
+                              )
+                            }
                           />
                         </div>
                         <div>
@@ -221,7 +269,13 @@ export default function AdsApproval() {
                             type="date"
                             className="w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                             value={ad.endDate ? ad.endDate.slice(0, 10) : ""}
-                            onChange={(e) => handleDateChange(ad._id, 'endDate', e.target.value)}
+                            onChange={(e) =>
+                              handleDateChange(
+                                ad._id,
+                                "endDate",
+                                e.target.value
+                              )
+                            }
                           />
                         </div>
                       </div>
@@ -243,7 +297,9 @@ export default function AdsApproval() {
             <button className="px-3 py-1 border rounded-md hover:bg-gray-200">
               &lt;
             </button>
-            <button className="px-3 py-1 border rounded-md bg-gray-200">1</button>
+            <button className="px-3 py-1 border rounded-md bg-gray-200">
+              1
+            </button>
             <button className="px-3 py-1 border rounded-md hover:bg-gray-200">
               2
             </button>
