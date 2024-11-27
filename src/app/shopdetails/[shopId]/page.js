@@ -54,7 +54,7 @@ export default function ShopDetails() {
             kuchi: API_KEY,
           },
         });
-        setProducts(response.data);  // Update the state with the products data
+        setProducts(response.data.products);  // Update the state with the products data
       } catch (err) {
         setError("Failed to fetch products");
         console.error(err);

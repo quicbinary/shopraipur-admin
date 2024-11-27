@@ -22,7 +22,7 @@ export default function ProductGrid() {
             
           }
         );
-        const sortedProducts = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        const sortedProducts = response.data.products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setProducts(sortedProducts);
       } catch (error) {
         console.error("Error fetching products:", error);

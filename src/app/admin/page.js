@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import axios from "axios";
+import Image from "next/image";
 
 function Page() {
   const [admins, setAdmins] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // State for Add Admin form
+  // States for Add Admin form
   const [formData, setFormData] = useState({
     adminName: "",
     email: "",
@@ -19,28 +19,35 @@ function Page() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
+  // States for password change modal
+  const [showModal, setShowModal] = useState(false);
+  const [selectedAdmin, setSelectedAdmin] = useState(null);
+  const [passwordData, setPasswordData] = useState({
+    newPassword: "",
+    confirmNewPassword: "",
+  });
+
   const fetchAdmins = async () => {
     try {
-      const apiKey ="98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8"; // Replace with your actual API key
+      const apiKey = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
       const response = await axios.get("http://localhost:3001/api/admins", {
         headers: {
-          kuchi: `${apiKey}`, // Pass the API key
+          kuchi: `${apiKey}`,
         },
       });
-      setAdmins(response.data); // Store the fetched data in state
+      setAdmins(response.data);
     } catch (error) {
       console.error("Error fetching admins:", error);
     } finally {
-      setLoading(false); // Set loading to false after fetching
+      setLoading(false);
     }
   };
 
-  // Fetch admin data from API
   useEffect(() => {
     fetchAdmins();
   }, []);
 
-  // Handle form input change
+  // Add Admin functionality
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -49,14 +56,12 @@ function Page() {
     }));
   };
 
-  // Handle form submission
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage(null);
     setSuccessMessage(null);
 
-    // Validation
-    const passwordRegex = /^(?=.[A-Z])(?=.\d)(?=.[!@#$%^&]).{8,}$/; // At least 1 uppercase, 1 number, 1 special character, 8+ chars
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
 
     if (!passwordRegex.test(formData.password)) {
       setErrorMessage(
@@ -78,10 +83,8 @@ function Page() {
       return;
     }
 
-    // Submit data to the API
     try {
-      const apiKey =
-        "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8"; // Replace with your actual API key
+      const apiKey = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
       const response = await axios.post(
         "http://localhost:3001/api/admins",
         {
@@ -97,11 +100,8 @@ function Page() {
         }
       );
 
-      // Append new admin to the list
       setAdmins((prev) => [...prev, response.data]);
       setSuccessMessage("Admin added successfully!");
-
-      // Reset form
       setFormData({
         adminName: "",
         email: "",
@@ -113,6 +113,71 @@ function Page() {
       await fetchAdmins();
     } catch (error) {
       setErrorMessage("Error adding admin: " + error.message);
+    }
+  };
+
+  // Password change functionality
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleOpenModal = (admin) => {
+    setSelectedAdmin(admin);
+    setShowModal(true);
+    setPasswordData({ newPassword: "", confirmNewPassword: "" });
+    setErrorMessage(null);
+    setSuccessMessage(null);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedAdmin(null);
+  };
+
+  const handleSubmitPassword = async () => {
+    const { newPassword, confirmNewPassword } = passwordData;
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
+    if (newPassword !== confirmNewPassword) {
+      setErrorMessage("Passwords do not match!");
+      return;
+    }
+
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+    if (!passwordRegex.test(newPassword)) {
+      setErrorMessage(
+        "Password must be at least 8 characters, include an uppercase letter, a number, and a special character."
+      );
+      return;
+    }
+
+    try {
+      const apiKey = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
+      await axios.put(
+        `http://localhost:3001/api/admins/${selectedAdmin._id}`,
+        { password: newPassword },
+        {
+          headers: { kuchi: `${apiKey}` },
+        }
+      );
+      setSuccessMessage("Password updated successfully!");
+      setTimeout(handleCloseModal, 2000);
+    } catch (error) {
+      setErrorMessage("Error updating password: " + error.message);
+    }
+  };
+  // Function to handle admin deletion
+  const handleDeleteAdmin = async (adminId) => {
+    try {
+      const apiKey = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
+      await axios.delete(`http://localhost:3001/api/admins/${adminId}`, {
+        headers: { kuchi: `${apiKey}` },
+      });
+      setAdmins((prev) => prev.filter((admin) => admin._id !== adminId)); // Update state to remove admin
+    } catch (error) {
+      console.error("Error deleting admin:", error);
     }
   };
 
@@ -166,11 +231,17 @@ function Page() {
                   </td>
                   <td className="py-4">{admin.role}</td>
                   <td className="py-4">
-                    <button className="bg-purple-600 text-white px-3 py-1 rounded-sm mr-2">
+                    <button
+                      onClick={() => handleOpenModal(admin)}
+                      className="bg-purple-600 text-white px-3 py-1 rounded-sm mr-2"
+                    >
                       Change Password
                     </button>
-                    <button className="text-red-500">
-                      <i className="fas fa-trash"></i>
+                    <button
+                      onClick={() => handleDeleteAdmin(admin._id)}
+                      className="bg-red-600 text-white px-3 py-1 rounded-sm"
+                    >
+                      Remove
                     </button>
                   </td>
                 </tr>
@@ -233,23 +304,19 @@ function Page() {
               />
             </div>
             <div>
-              <label className="block text-gray-700">Admin Type</label>
-              <select
+              <label className="block text-gray-700">Role</label>
+              <input
+                type="text"
                 name="role"
                 value={formData.role}
                 onChange={handleInputChange}
                 className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
-              >
-                <option value="">Select Admin Type</option>
-                <option value="Super Admin">SuperAdmin</option>
-                <option value="Admin">Admin</option>
-              </select>
+              />
             </div>
-
-            <div className="col-span-2 text-right">
+            <div className="col-span-full">
               <button
                 type="submit"
-                className="bg-purple-600 text-white py-2 px-6 rounded-sm"
+                className="bg-purple-600 text-white px-4 py-2 rounded-lg"
               >
                 Add Admin
               </button>
@@ -257,6 +324,55 @@ function Page() {
           </form>
         </div>
       </div>
+
+      {/* Password Change Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-semibold mb-4">
+              Change Password for {selectedAdmin?.adminName}
+            </h2>
+            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+            {successMessage && <p className="text-green-500">{successMessage}</p>}
+            <div>
+              <label className="block text-gray-700">New Password</label>
+              <input
+                type="password"
+                name="newPassword"
+                value={passwordData.newPassword}
+                onChange={handlePasswordChange}
+                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700 mt-4">
+                Confirm New Password
+              </label>
+              <input
+                type="password"
+                name="confirmNewPassword"
+                value={passwordData.confirmNewPassword}
+                onChange={handlePasswordChange}
+                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+              />
+            </div>
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={handleCloseModal}
+                className="text-gray-600 px-4 py-2 mr-2"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmitPassword}
+                className="bg-purple-600 text-white px-4 py-2 rounded-lg"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

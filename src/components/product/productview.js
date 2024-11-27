@@ -18,7 +18,7 @@ export default function ProductGrid() {
             kuchi: '98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8',
           },
         });
-        const sortedProducts = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        const sortedProducts = response.data.products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setProducts(sortedProducts);
       } catch (error) {
         console.error('Error fetching products:', error);

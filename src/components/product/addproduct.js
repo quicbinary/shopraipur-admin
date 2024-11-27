@@ -1,5 +1,5 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function AddProduct() {
@@ -17,6 +17,56 @@ export default function AddProduct() {
     productImages: null,
   });
 
+  const [shops, setShops] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+
+  // Fetch data for shops and categories on component mount
+  useEffect(() => {
+    const fetchShops = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/shops", {
+          headers: {
+            kuchi: "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8",
+          },
+        });
+        setShops(response.data.shops);
+      } catch (error) {
+        console.error("Error fetching shops:", error);
+      }
+    };
+
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3001/api/categories",
+          {
+            headers: {
+              kuchi:
+                "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8",
+            },
+          }
+        );
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchShops();
+    fetchCategories();
+  }, []);
+
+  // Update subcategories based on selected category
+  useEffect(() => {
+    if (formData.productCategory) {
+      const selectedCategory = categories.find(
+        (category) => category.name === formData.productCategory
+      );
+      setSubCategories(selectedCategory ? selectedCategory.subcategories : []);
+    }
+  }, [formData.productCategory, categories]);
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -33,29 +83,69 @@ export default function AddProduct() {
     e.preventDefault();
 
     try {
-      const data = new FormData();
-      for (let key in formData) {
-        if (key === "tags") {
-          data.append(key, formData[key].split(",").map((tag) => tag.trim()));
-        } else {
-          data.append(key, formData[key]);
-        }
+      // Step 1: Get the image file from formData
+      const imageFile = formData.productImages; // Assuming the file is stored in formData.productImages
+      if (!imageFile) {
+        alert("Please upload an image.");
+        return;
       }
 
-      const response = await axios.post(
-        "http://localhost:3001/api/products/",
+      // Step 2: Create FormData for the image upload
+      const imageData = new FormData();
+      imageData.append("file", imageFile);
+
+      // Step 3: Upload the image
+      const imageResponse = await axios.post(
+        "http://localhost:3001/api/upload",
+        imageData,
         {
           headers: {
-            "Content-Type": "application/json",
-            kuchi:
-              "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8", // Replace with your API key
+            "Content-Type": "multipart/form-data", // Set Content-Type for file upload
+            kuchi: "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8", // Optional header
           },
-        },
-        data
+        }
       );
 
-      console.log("Product added successfully:", response.data);
-      alert(response.data.message);
+      // Step 4: Check if image upload was successful and retrieve the file URL
+      if (imageResponse.data.message === "File uploaded successfully") {
+        const fileUrl = imageResponse.data.fileUrl; // Extract file URL from response
+
+        // Step 5: Prepare the product data to be sent as JSON
+        const productData = {
+          productName: formData.productName,
+          productDescription: formData.productDescription,
+          productCategory: formData.productCategory,
+          productSubCategory: formData.productSubCategory,
+          productOriginalPrice: formData.productOriginalPrice,
+          productDiscountedPrice: formData.productDiscountedPrice,
+          fixedPrice: formData.fixedPrice,
+          negotiatablePrice: formData.negotiatablePrice,
+          tags: formData.tags.split(",").map((tag) => tag.trim()), // Split tags by comma and trim spaces
+          productImages: [fileUrl], // Include the uploaded image URL in the productImages array
+          shopId: formData.shopId, // If applicable
+        };
+
+        console.log(productData.shopId)
+
+        // Step 6: Send the product data as a JSON object to the /api/products/ endpoint
+        const response = await axios.post(
+          "http://localhost:3001/api/products/",
+          productData , // Send the product data as JSON
+          {
+            headers: {
+              "Content-Type": "application/json", // Set Content-Type to application/json
+              kuchi:
+                "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8", // Optional header
+            },
+          }
+        );
+
+        // Step 7: Handle successful product creation
+        console.log("Product added successfully:", response.data);
+        alert(response.data.message);
+      } else {
+        alert("Image upload failed. Please try again.");
+      }
     } catch (error) {
       console.error("Error adding product:", error);
       alert("Failed to add product. Please try again.");
@@ -67,9 +157,7 @@ export default function AddProduct() {
       <div className="bg-white p-6 rounded-lg shadow-md w-full">
         <h1 className="text-2xl font-bold mb-6">Add Product</h1>
         <form onSubmit={handleSubmit}>
-          {/* Grid Container */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Select Shop */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Select Shop
@@ -81,11 +169,14 @@ export default function AddProduct() {
                 className="w-full border border-gray-300 rounded-lg p-2"
               >
                 <option value="">Select the shop</option>
-                <option value="6730c60269131e0987efb285">Shop 1</option>
+                {shops.map((shop) => (
+                  <option key={shop._id} value={shop._id}>
+                    {shop.shopName}
+                  </option>
+                ))}
               </select>
             </div>
 
-            {/* Product Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Product Name
@@ -100,13 +191,12 @@ export default function AddProduct() {
               />
             </div>
 
-            {/* Original Price */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Original Price
               </label>
               <input
-                type="text"
+                type="number"
                 name="productOriginalPrice"
                 value={formData.productOriginalPrice}
                 onChange={handleInputChange}
@@ -115,13 +205,12 @@ export default function AddProduct() {
               />
             </div>
 
-            {/* Discounted Price */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Discounted Price
               </label>
               <input
-                type="text"
+                type="number"
                 name="productDiscountedPrice"
                 value={formData.productDiscountedPrice}
                 onChange={handleInputChange}
@@ -130,19 +219,45 @@ export default function AddProduct() {
               />
             </div>
 
-            {/* Upload Product Image */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Upload Product Image
+                Product Categories
               </label>
-              <input
-                type="file"
-                onChange={handleFileChange}
+              <select
+                name="productCategory"
+                value={formData.productCategory}
+                onChange={handleInputChange}
                 className="w-full border border-gray-300 rounded-lg p-2"
-              />
+              >
+                <option value="">Select Product Categories</option>
+                {categories.map((category) => (
+                  <option key={category._id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            {/* Add Tags */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Product Sub Categories
+              </label>
+              <select
+                name="productSubCategory"
+                value={formData.productSubCategory}
+                onChange={handleInputChange}
+                className="w-full border border-gray-300 rounded-lg p-2"
+                disabled={!formData.productCategory}
+              >
+                <option value="">Select Product Sub Categories</option>
+                {subCategories.map((subCategory, index) => (
+                  <option key={index} value={subCategory}>
+                    {subCategory}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Add Tags
@@ -157,8 +272,19 @@ export default function AddProduct() {
               />
             </div>
 
-            {/* Product Description */}
-            <div className="col-span-1 md:col-span-3">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Upload Product Image
+              </label>
+              <input
+                type="file"
+                name="productImages"
+                onChange={handleFileChange}
+                className="w-full border border-gray-300 rounded-lg p-2"
+              />
+            </div>
+
+            <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Product Description
               </label>
@@ -171,39 +297,6 @@ export default function AddProduct() {
               ></textarea>
             </div>
 
-            {/* Product Categories */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Product Categories
-              </label>
-              <select
-                name="productCategory"
-                value={formData.productCategory}
-                onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-2"
-              >
-                <option value="">Select Product Categories</option>
-                <option value="Electronics">Electronics</option>
-              </select>
-            </div>
-
-            {/* Product Sub Categories */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Product Sub Categories
-              </label>
-              <select
-                name="productSubCategory"
-                value={formData.productSubCategory}
-                onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-2"
-              >
-                <option value="">Select Product Sub Categories</option>
-                <option value="Home Entertainment">Home Entertainment</option>
-              </select>
-            </div>
-
-            {/* Price Type */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Price Type
@@ -233,7 +326,6 @@ export default function AddProduct() {
             </div>
           </div>
 
-          {/* Submit Button */}
           <div className="mt-6 flex justify-end">
             <button
               type="submit"

@@ -10,7 +10,6 @@ export default function ProductApproval() {
   const [subcategories, setSubcategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalProduct, setModalProduct] = useState(null);
-
   const [filters, setFilters] = useState({
     category: "",
     subcategory: "",
@@ -18,6 +17,9 @@ export default function ProductApproval() {
     toDate: "",
   });
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [pageLimit, setPageLimit] = useState(10); // Limit the number of products per page
   const API_KEY = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
 
   useEffect(() => {
@@ -26,7 +28,7 @@ export default function ProductApproval() {
 
   useEffect(() => {
     fetchProducts();
-  }, [filters]);
+  }, [filters, currentPage, pageLimit]);
 
   useEffect(() => {
     const selectedCategory = categories.find(
@@ -42,7 +44,7 @@ export default function ProductApproval() {
   const fetchProducts = async () => {
     try {
       const { category, subcategory, fromDate, toDate } = filters;
-      let url = `http://localhost:3001/api/products?isApproved=false`;
+      let url = `http://localhost:3001/api/products?isApproved=false&page=${currentPage}&limit=5`;
 
       if (category) url += `&category=${category}`;
       if (subcategory) url += `&subcategory=${subcategory}`;
@@ -54,7 +56,8 @@ export default function ProductApproval() {
           kuchi: `${API_KEY}`,
         },
       });
-      setProducts(response.data);
+      setProducts(response.data.products);
+      setTotalPages(Math.ceil(response?.data?.pagination?.totalPages)); // Set total pages for pagination
     } catch (error) {
       console.error("Error fetching products:", error);
       alert("Failed to fetch products.");
@@ -122,6 +125,10 @@ export default function ProductApproval() {
   const handleViewProduct = (product) => {
     setModalProduct(product);
     setIsModalOpen(true);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -255,105 +262,61 @@ export default function ProductApproval() {
                   onClick={() => handleDeleteProduct(product._id)}
                   className="px-4 py-2 h-10 bg-purple-500 text-white rounded-lg"
                 >
-                  <FaTrashAlt />{" "}
+                  <FaTrashAlt />
                 </button>
               </div>
             </div>
           ))
         ) : (
-          <div className="flex justify-center items-center h-20">
-            <p>No products available in the selected date range</p>
-          </div>
+          <p>No products available for approval.</p>
         )}
       </div>
-      {isModalOpen && (
-        <ProductModal
-          product={modalProduct}
-          onClose={() => setIsModalOpen(false)}
-        />
-      )}
+
+      {/* Pagination */}
+
+      <div className="flex justify-center space-x-2 mt-6">
+        {totalPages > 1 && (
+          <>
+            {/* Previous Button */}
+            <button
+              disabled={currentPage === 1}
+              className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600"
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              &lt;
+            </button>
+
+            {/* Page Numbers */}
+            {Array.from({ length: totalPages }, (_, index) => index + 1)
+              .slice(
+                Math.max(0, currentPage - 3),
+                Math.min(totalPages, currentPage + 2)
+              )
+              .map((page) => (
+                <button
+                  key={page}
+                  className={`px-3 py-1 rounded-lg ${
+                    page === currentPage
+                      ? "bg-purple-500 text-white"
+                      : "bg-white text-gray-600 border border-gray-300"
+                  }`}
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page}
+                </button>
+              ))}
+
+            {/* Next Button */}
+            <button
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600"
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              &gt;
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 }
-const ProductModal = ({ product, closeModal }) => {
-  const [selectedImage, setSelectedImage] = useState(
-    product.productImages && product.productImages[0]
-      ? product.productImages[0]
-      : "/assets/placeholder.png"
-  );
-
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-  };
-
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white w-[80%] max-w-4xl rounded-lg overflow-hidden shadow-lg">
-        {/* Close Button */}
-        <div className="flex justify-end p-4">
-          <button
-            className="text-gray-400 hover:text-gray-800 text-2xl"
-            onClick={closeModal}
-          >
-            &times;
-          </button>
-        </div>
-
-        {/* Modal Content */}
-        <div className="pb-6 flex flex-col md:flex-row">
-          {/* Left Section: Main Image */}
-          <div className="w-full md:w-1/2 flex flex-col items-center">
-            <Image
-              src={selectedImage}
-              alt={product.productName}
-              width={400}
-              height={400}
-              className="rounded-lg"
-            />
-            {/* Thumbnail Images */}
-            <div className="flex mt-4 space-x-2">
-              {product.productImages &&
-                product.productImages.map((image, index) => (
-                  <Image
-                    key={index}
-                    src={image}
-                    alt={`Thumbnail ${index + 1}`}
-                    width={80}
-                    height={80}
-                    className="rounded-lg border cursor-pointer hover:scale-105"
-                    onClick={() => handleImageClick(image)} // Handle thumbnail click
-                  />
-                ))}
-            </div>
-          </div>
-
-          {/* Right Section: Product Details */}
-          <div className="w-full md:w-1/2 md:pl-6">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">
-              {product.productName}
-            </h1>
-            <div className="flex items-center space-x-4 mb-4">
-              <span className="text-xl font-bold text-purple-600">
-                ₹{product.productDiscountedPrice}
-              </span>
-              <span className="text-lg line-through text-gray-400">
-                ₹{product.productOriginalPrice}
-              </span>
-              {product.isNegotiable && (
-                <span className="text-sm text-green-600 bg-green-100 px-2 py-1 rounded">
-                  Price Negotiable
-                </span>
-              )}
-            </div>
-            <h2 className="text-lg font-semibold text-gray-700 mb-2">
-              Description
-            </h2>
-            <p className="text-gray-600 leading-relaxed">
-              {product.productDescription}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};

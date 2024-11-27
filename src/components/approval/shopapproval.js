@@ -18,20 +18,33 @@ export default function ShopApproval() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [totalPages, setTotalPages] = useState(1); // Default to 1 page initially
 
   const API_KEY = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
+
   const fetchShops = async () => {
     try {
       setLoading(true);
 
       const response = await axios.get(
-        `http://localhost:3001/api/shops?isApproved=false&page=${currentPage}&startDate=${startDate}&endDate=${endDate}&category=${selectedCategory}`,
+        `http://localhost:3001/api/shops?isApproved=false&page=${currentPage}&limit=5&startDate=${startDate}&endDate=${endDate}&category=${selectedCategory}`,
         {
           headers: { kuchi: API_KEY },
         }
       );
-  
-      setShops(response.data);
+
+      // Ensure shops are sorted by 'createdAt' in descending order (most recent first)
+      const sortedShops = response.data.shops.sort((a, b) => {
+        // Check if 'createdAt' is a valid date, then sort by descending order
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateB - dateA; // Descending order
+      });
+
+      setShops(sortedShops);
+
+      // Set totalPages based on the API response
+      setTotalPages(response?.data?.pagination?.totalPages || 1); // Fallback to 1 if not provided
     } catch (err) {
       setError("Failed to fetch shops");
     } finally {
@@ -59,7 +72,9 @@ export default function ShopApproval() {
   }, [currentPage, startDate, endDate, selectedCategory]);
 
   const approveShop = async (shopId) => {
-    const isConfirmed = window.confirm("Are you sure you want to approve this shop?");
+    const isConfirmed = window.confirm(
+      "Are you sure you want to approve this shop?"
+    );
     if (!isConfirmed) return;
 
     try {
@@ -85,7 +100,9 @@ export default function ShopApproval() {
   };
 
   const deleteShop = async (shopId) => {
-    const isConfirmed = window.confirm("Are you sure you want to delete this shop?");
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this shop?"
+    );
     if (!isConfirmed) return;
 
     try {
@@ -219,32 +236,59 @@ export default function ShopApproval() {
           </div>
         ))
       ) : (
-        <div className="bg-white p-6 rounded-lg text-center">
+        <div className="bg-white p-6 rounded-lg text=-center">
           No shops pending approval
         </div>
       )}
 
       {/* Pagination */}
+      
+      
       <div className="flex justify-center space-x-2 mt-6">
-        <button
-          disabled={currentPage === 1}
-          className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600"
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-        >
-          &lt;
-        </button>
-        <button className="px-3 py-1 bg-purple-500 text-white rounded-lg">
-          {currentPage}
-        </button>
-        <button
-          className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600"
-          onClick={() => setCurrentPage((prev) => prev + 1)}
-        >
-          &gt;
-        </button>
-      </div>
+  {totalPages > 1 && (
+    <>
+      {/* Previous Button */}
+      <button
+        disabled={currentPage === 1}
+        className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600"
+        onClick={() => setCurrentPage(currentPage - 1)}
+      >
+        &lt;
+      </button>
 
-      {/* Modal */}
+      {/* Page Numbers */}
+      {Array.from({ length: totalPages }, (_, index) => index + 1)
+        .slice(
+          Math.max(0, currentPage - 3),
+          Math.min(totalPages, currentPage + 2)
+        )
+        .map((page) => (
+          <button
+            key={page}
+            className={`px-3 py-1 rounded-lg ${
+              page === currentPage
+                ? "bg-purple-500 text-white"
+                : "bg-white text-gray-600 border border-gray-300"
+            }`}
+            onClick={() => setCurrentPage(page)}
+          >
+            {page}
+          </button>
+        ))}
+
+      {/* Next Button */}
+      <button
+        disabled={currentPage === totalPages}
+        className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600"
+        onClick={() => setCurrentPage(currentPage + 1)}
+      >
+        &gt;
+      </button>
+    </>
+  )}
+</div>
+
+
       {isModalOpen && (
         <Modal shop={selectedShop} onClose={() => setIsModalOpen(false)} />
       )}
@@ -255,20 +299,58 @@ export default function ShopApproval() {
 function Modal({ shop, onClose }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-[80%] max-w-[600px]">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-semibold">{shop.shopName}</h3>
-          <button onClick={onClose}>
-            <AiOutlineClose size={24} />
-          </button>
-        </div>
-        <p className="text-gray-600">{shop.shopDetails}</p>
+      <div className="bg-white p-8 rounded-lg shadow-lg w-[90%] max-w-[800px] relative">
+        {/* Close Icon in Top Right */}
         <button
-          className="mt-4 px-8 py-2 bg-blue-500 text-white rounded-lg"
           onClick={onClose}
+          className="absolute top-4 right-4 text-gray-700 hover:text-gray-900"
         >
-          Close
+          <AiOutlineClose size={24} />
         </button>
+
+        {/* Shop Logo and Name Centered */}
+        <div className="flex flex-col items-center mb-6">
+          <img
+            src={shop.shopLogo}
+            alt={`${shop.shopName} Logo`}
+            className="w-24 h-24 rounded-full object-cover mb-4"
+          />
+          <h3 className="text-3xl font-semibold text-center">
+            {shop.shopName}
+          </h3>
+        </div>
+
+        {/* Shop Details */}
+        <div className="mb-6">
+          <p className="text-lg text-gray-700">
+            <strong>Owner:</strong> {shop.ownerName}
+          </p>
+          <p className="text-lg text-gray-700">
+            <strong>Phone Number:</strong> {shop.phoneNumber}
+          </p>
+          <p className="text-lg text-gray-700">
+            <strong>Address:</strong> {shop.address}
+          </p>
+          <p className="text-lg text-gray-700">
+            <strong>GST Number:</strong> {shop.gst}
+          </p>
+          <p className="text-lg text-gray-700">
+            <strong>Area:</strong> {shop.area}
+          </p>
+          <p className="text-lg text-gray-700">
+            <strong>Shop Categories:</strong>{" "}
+            {shop.shopCategories
+              ? shop.shopCategories.join(", ")
+              : "Not specified"}
+          </p>
+          <p className="text-lg text-gray-700">
+            <strong>Product Limit:</strong> {shop.productLimit}
+          </p>
+          <p className="text-lg text-gray-700">
+            <strong>Approval Status:</strong>{" "}
+            {shop.isApproved ? "Approved" : "Not Approved"}
+          </p>
+        </div>
       </div>
     </div>
   );

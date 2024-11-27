@@ -18,7 +18,7 @@ export default function Dashboard() {
         headers: { kuchi: `${API_KEY}` },
       }) // Replace with your actual API URL
       .then((response) => {
-        setShopsCount(response.data.length); // Assuming response.data contains the total count or other useful data
+        setShopsCount(response.data.shops.length); // Assuming response.data contains the total count or other useful data
         console.log(response.data);
       })
       .catch((err) => {
@@ -33,7 +33,7 @@ export default function Dashboard() {
       }) // Replace with your actual API URL
       .then((response) => {
         // Calculate the total products based on the length of the products array
-        setProductsCount(response.data.length);
+        setProductsCount(response.data.products.length);
       })
       .catch((err) => {
         setError("Failed to fetch products");

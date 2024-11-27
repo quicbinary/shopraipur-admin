@@ -18,7 +18,7 @@ const Shops = () => {
         const response = await axios.get("http://localhost:3001/api/shops?isApproved=true", {
           headers: { kuchi: `${API_KEY}` },
         });
-        setShops(response.data);
+        setShops(response.data.shops);
       } catch (error) {
         console.error("Error fetching shops:", error);
       } finally {
