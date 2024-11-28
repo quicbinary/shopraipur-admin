@@ -39,7 +39,7 @@ export default function ProductGrid() {
   }
 
   return (
-    <div className="bg-gray-100 p-8">
+    <div className="bg-white-100 p-8">
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-6">Filter Product</h1>
         {/* Filter Section */}

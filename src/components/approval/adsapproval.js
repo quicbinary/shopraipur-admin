@@ -17,7 +17,7 @@ export default function AdsApproval() {
 
   // Fetch ads data based on selected adType and page
   const fetchAds = async () => {
-    if (adType) {
+    if (adType) {new
       try {
         const queryParams = new URLSearchParams({
           adType,
