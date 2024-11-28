@@ -49,8 +49,6 @@ export default function AdsApproval() {
     fetchAds();
   }, [adType, fromDate, toDate, currentPage]);
 
-
-
   const handleApprove = async (adId) => {
     const isConfirmed = window.confirm(
       "Are you sure you want to approve this ad?"
@@ -129,6 +127,7 @@ export default function AdsApproval() {
               <option value="Banner Ad">Homepage Banner</option>
               <option value="Story Ad">Story Ad</option>
               <option value="Shorts Ad">Shorts Ad</option>
+              <option value="Promoted Products">Promoted Products</option>
             </select>
           </div>
           <div>
@@ -176,13 +175,25 @@ export default function AdsApproval() {
                     </video>
                   </div>
                 ) : (
-                  <Image
-                    src={ad.url}
-                    alt="Ad image"
-                    width={200}
-                    height={400}
-                    className="w-60 h-50 rounded-md border"
-                  />
+                  <div className="shadow p-4">
+                    <Image
+                      src={
+                        adType === "Promoted Products"
+                          ? ad.productId.productImages[0]
+                          : ad.url
+                      }
+                      alt="Ad image"
+                      width={adType === "Promoted Products" ? 100 : 200}
+                      height={adType === "Promoted Products" ? 200 : 400}
+                      className="w-60 h-50 rounded-md border"
+                    />
+                    {adType === "Promoted Products" && (
+                      <>
+                        <p>{ad?.productId?.productName}</p>
+                        <p>{ad?.productId?.productDescription}</p>
+                      </>
+                    )}
+                  </div>
                 )}
 
                 <div className="flex justify-center items-center gap-6">
