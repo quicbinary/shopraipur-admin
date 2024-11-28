@@ -12,7 +12,7 @@ export default function ProductGrid() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/api/products/",
+          "http://localhost:3001/api/products?isApproved=true",
           {
             headers: {
               "Content-Type": "application/json",
