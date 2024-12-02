@@ -185,7 +185,6 @@ export const ManageStoryAds = ({ adsData, handleDelete }) => {
 // ManagePromotedAds Component
 export const ManagePromotedAds = ({ adsData, handleDelete }) => {
 
-  console.log(adsData)
 
   return (
     <div className="p-8">

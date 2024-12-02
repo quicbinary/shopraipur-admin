@@ -125,12 +125,12 @@ export default function AddProduct() {
           shopId: formData.shopId, // If applicable
         };
 
-        console.log(productData.shopId)
+        console.log(productData.shopId);
 
         // Step 6: Send the product data as a JSON object to the /api/products/ endpoint
         const response = await axios.post(
           "http://localhost:3001/api/products/",
-          productData , // Send the product data as JSON
+          productData, // Send the product data as JSON
           {
             headers: {
               "Content-Type": "application/json", // Set Content-Type to application/json
@@ -307,9 +307,15 @@ export default function AddProduct() {
                     type="checkbox"
                     name="fixedPrice"
                     checked={formData.fixedPrice}
-                    onChange={handleInputChange}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        fixedPrice: e.target.checked,
+                        negotiatablePrice: !e.target.checked, // Uncheck the other
+                      })
+                    }
                     className="mr-2"
-                  />{" "}
+                  />
                   Fixed
                 </label>
                 <label className="flex items-center">
@@ -317,9 +323,15 @@ export default function AddProduct() {
                     type="checkbox"
                     name="negotiatablePrice"
                     checked={formData.negotiatablePrice}
-                    onChange={handleInputChange}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        negotiatablePrice: e.target.checked,
+                        fixedPrice: !e.target.checked, // Uncheck the other
+                      })
+                    }
                     className="mr-2"
-                  />{" "}
+                  />
                   Negotiable
                 </label>
               </div>
