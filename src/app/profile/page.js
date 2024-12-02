@@ -19,7 +19,7 @@ export default function ProfileHeader() {
         </div>
       </div>
 
-      <div className="bg-gray-100 p-8 w-full flex-1 justify-center items-center">
+      <div className="bg-white-100 p-8 w-full flex-1 justify-center items-center">
         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col sm:flex-row items-center gap-6 mb-8">
           <Image
             src="/assets/logo.jpg"

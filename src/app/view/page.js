@@ -15,7 +15,7 @@ export default function Dashboard() {
     const fetchAds = async () => {
       setLoading(true);
       try {
-        const adsResponse = await axios.get("http://localhost:3001/api/ads                                                                                                                                                     ", {
+        const adsResponse = await axios.get("http://localhost:3001/api/ads", {
           headers: {
             kuchi: '98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8',
           },
@@ -29,6 +29,12 @@ export default function Dashboard() {
         console.log("Ads API Response:", adsResponse.data);
   
         setAdsData(adsResponse.data.ads || []);  // Update the ads data
+
+
+        console.log("Ads API Response:", adsResponse.data);
+
+        // Handle pagination if required (defaulting to ads array in response)
+        setAdsData(adsResponse.data.ads || []);
       } catch (error) {
         console.error("Error fetching data:", error);
         if (axios.isAxiosError(error)) {
@@ -218,8 +224,6 @@ export default function Dashboard() {
           </>
         )}
       </main>
-
-      
     </div>
   );
 }

@@ -74,7 +74,7 @@ export default function Dashboard() {
             />
             <StatsCard
               title="Total Product Views"
-              value="1200000 VIEWS"
+              value="1200 VIEWS"
               icon="fas fa-chart-line"
               buttonLabel="View Stats"
             />

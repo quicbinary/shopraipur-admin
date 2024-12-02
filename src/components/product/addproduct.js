@@ -153,7 +153,7 @@ export default function AddProduct() {
   };
 
   return (
-    <div className="p-8 flex items-center justify-center bg-gray-100">
+    <div className="p-8 flex items-center justify-center bg-white-100">
       <div className="bg-white p-6 rounded-lg shadow-md w-full">
         <h1 className="text-2xl font-bold mb-6">Add Product</h1>
         <form onSubmit={handleSubmit}>
