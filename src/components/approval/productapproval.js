@@ -132,8 +132,8 @@ export default function ProductApproval() {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg">
-      <h2 className="text-lg font-bold mb-4">Product Approval</h2>
+    <div className="bg-white p-8 rounded-lg shadow-md">
+      <h2 className="text-lg font-bold mb-4 text-purple-600">Product Approval</h2>
 
       {/* Filter Section */}
       <div className="grid grid-cols-4 gap-6 mb-8">

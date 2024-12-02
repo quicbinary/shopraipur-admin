@@ -54,8 +54,6 @@ export default function Dashboard() {
     <div className="flex bg-gray-100 min-h-screen">
       {/* Main Content */}
       <div className="flex-1 p-10 flex flex-col items-center rounded-lg">
-        {/* Header */}
-        <Header />
 
         {/* Cards Container */}
         <div className="bg-white p-10 rounded-lg shadow-lg w-full ">
@@ -85,23 +83,7 @@ export default function Dashboard() {
   );
 }
 
-function Header() {
-  return (
-    <div className="flex justify-between items-center bg-white p-5 rounded-lg shadow-lg mb-8 w-full">
-      <h1 className="text-2xl font-semibold">Dashboard</h1>
-      <div className="flex items-center space-x-2">
-        <Image
-          src="/assets/logo.jpg"
-          alt="Profile"
-          width={150}
-          height={300}
-          className="w-10 h-10 rounded-full"
-        />
-        <span>Nikhil Mitra</span>
-      </div>
-    </div>
-  );
-}
+
 
 function StatsCard({ title, value, icon, buttonLabel }) {
   return (

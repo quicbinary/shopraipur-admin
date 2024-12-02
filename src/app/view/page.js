@@ -79,6 +79,7 @@ export default function Dashboard() {
             <option value="shortVideoViews">Short Video Views</option>
             <option value="promotedProducts">Promoted Products</option>
             <option value="storyViews">Story Views</option>
+            <option value="bannerAds">Banner Ads</option>
           </select>
         </div>
 
@@ -113,7 +114,9 @@ export default function Dashboard() {
                         </div>
                       ))
                   ) : (
-                    <p className="text-center text-gray-500">No videos available</p>
+                    <p className="text-center text-gray-500">
+                      No videos available
+                    </p>
                   )}
                 </div>
               </section>
@@ -121,7 +124,9 @@ export default function Dashboard() {
 
             {selectedAdType === "promotedProducts" && (
               <section>
-                <h2 className="text-xl font-bold mb-6">Promoted Products Views</h2>
+                <h2 className="text-xl font-bold mb-6">
+                  Promoted Products Views
+                </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {adsData.length > 0 ? (
                     adsData
@@ -133,7 +138,10 @@ export default function Dashboard() {
                         >
                           <div className="relative w-full h-40 mb-4">
                             <Image
-                              src={ad.productId?.productImages?.[0] || "/placeholder.jpg"}
+                              src={
+                                ad.productId?.productImages?.[0] ||
+                                "/placeholder.jpg"
+                              }
                               alt={ad.productId?.productName || "Product"}
                               width={150}
                               height={150}
@@ -158,7 +166,9 @@ export default function Dashboard() {
                         </div>
                       ))
                   ) : (
-                    <p className="text-center text-gray-500">No promoted products available</p>
+                    <p className="text-center text-gray-500">
+                      No promoted products available
+                    </p>
                   )}
                 </div>
               </section>
@@ -167,7 +177,70 @@ export default function Dashboard() {
             {selectedAdType === "storyViews" && (
               <section>
                 <h2 className="text-xl font-bold mb-6">Story Views</h2>
-                {/* Add your logic for stories if required */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {adsData?.length > 0 ? (
+                    adsData
+                      .filter((ad) => ad.adType === "Story Ad") // Filter for story ads
+                      .map((story) => (
+                        <div
+                          key={story._id}
+                          className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center justify-center"
+                        >
+                          <video
+                            src={story.url}
+                            controls
+                            className="w-32 h-32 rounded-lg mb-4"
+                          ></video>
+                          <div className="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium mb-2">
+                            Views
+                          </div>
+                          <span className="text-xl font-bold text-purple-600">
+                            {story.views.toLocaleString()}
+                          </span>
+                        </div>
+                      ))
+                  ) : (
+                    <p className="text-center text-gray-500">
+                      No story ads available
+                    </p>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {selectedAdType === "bannerAds" && (
+              <section className="mb-12">
+                <h2 className="text-xl font-bold mb-6">Banner Ads</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {adsData?.length > 0 ? (
+                    adsData
+                      .filter((ad) => ad.adType === "Banner Ad")
+                      .map((banner) => (
+                        <div
+                          key={banner._id}
+                          className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center justify-center"
+                        >
+                          <Image
+                            src={banner.url}
+                            alt="Banner Ad"
+                            width={200}
+                            height={150}
+                            className="rounded-lg mb-4"
+                          />
+                          <div className="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium mb-2">
+                            Views
+                          </div>
+                          <span className="text-xl font-bold text-purple-600">
+                            {banner.views.toLocaleString()}
+                          </span>
+                        </div>
+                      ))
+                  ) : (
+                    <p className="text-center text-gray-500">
+                      No banner ads available
+                    </p>
+                  )}
+                </div>
               </section>
             )}
           </>

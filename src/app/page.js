@@ -1,9 +1,9 @@
 import React from 'react'
-import Dashboard from './dashboard/page'
+import Login from "@/app/login/page"
 export default function page() {
   return (
-    <div>
-      <Dashboard/>
-    </div>
+    <main>
+      <Login/>
+    </main>
   )
 }

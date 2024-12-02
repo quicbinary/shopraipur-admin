@@ -106,8 +106,6 @@ export default function ShopDetails() {
       </Head>
       <div className="bg-gray-100 flex min-h-screen">
         <div className="flex-1 p-8">
-          {/* Header */}
-         <Header/>
           {/* Shop Details */}
           <div className="bg-white shadow-lg mt-7 rounded-lg p-6 mb-10">
             <div className="flex items-center space-x-4">
@@ -119,7 +117,7 @@ export default function ShopDetails() {
                 className="w-20 h-20 rounded"
               />
               <div>
-                <h2 className="shop-name text-2xl font-semibold">{shop.shopName}</h2>
+                <h2 className="shop-name text-2xl font-semibold text-purple-600">{shop.shopName}</h2>
                 <p className="owner-name text-gray-500">{shop.ownerName}</p>
               </div>
             </div>
@@ -127,7 +125,7 @@ export default function ShopDetails() {
 
           {/* Information Section */}
           <div className="bg-white shadow-lg mb-10 rounded-lg p-6">
-            <h3 className="text-xl font-semibold mb-6">Information</h3>
+            <h3 className="text-xl font-semibold mb-6 text-purple-600">Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-700">
               <div>
                 <h4 className="font-semibold">Shop Name</h4>
@@ -154,7 +152,7 @@ export default function ShopDetails() {
 
           {/* Product Section */}
           <div className="bg-white shadow-lg rounded-lg p-6 mt-10">
-            <h3 className="text-xl font-semibold mb-6">Products</h3>
+            <h3 className="text-xl font-semibold mb-6 text-purple-600">Products</h3>
 
             {/* Product Table */}
             <div className="overflow-x-auto">
@@ -198,24 +196,5 @@ export default function ShopDetails() {
         </div>
       </div>
     </>
-  );
-}
-
-// Header component
-function Header() {
-  return (
-    <div className="flex justify-between items-center bg-white p-5 rounded-lg shadow-lg mb-8 w-full">
-      <h1 className="text-2xl font-semibold text-gray-800">Shop</h1>
-      <div className="flex items-center space-x-2">
-        <Image
-          src="/assets/logo.jpg"
-          alt="Profile"
-          width={150}
-          height={300}
-          className="w-10 h-10 rounded-full"
-        />
-        <span className="font-semibold text-gray-800">Nikhil Mitra</span>
-      </div>
-    </div>
   );
 }

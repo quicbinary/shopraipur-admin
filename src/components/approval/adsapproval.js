@@ -113,7 +113,7 @@ export default function AdsApproval() {
   return (
     <div className="pt-10">
       <div className="bg-white shadow-md rounded-lg p-8">
-        <h1 className="text-2xl font-bold mb-6">Ads Approval</h1>
+        <h1 className="text-2xl font-bold mb-6 text-purple-600">Ads Approval</h1>
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700 mb-1">

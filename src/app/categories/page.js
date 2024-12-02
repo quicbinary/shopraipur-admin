@@ -256,7 +256,7 @@ export default function Page() {
   return (
     <div>
       {/* Main UI */}
-      <div className="flex-grow p-8">
+      <div className="flex-grow bg-gray-100 h-screen p-8">
         <div className="bg-white shadow-md rounded-lg p-6">
           <h3 className="text-lg font-semibold mb-4">Category List</h3>
 

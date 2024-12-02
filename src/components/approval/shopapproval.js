@@ -137,13 +137,13 @@ export default function ShopApproval() {
   };
 
   return (
-    <div className="p-6 w-full bg-white rounded-xl">
+    <div className="p-6 w-full bg-white rounded-md shadow-md">
       {/* Filter Section */}
-      <div className="bg-white px-10 py-10 rounded-lg shadow-lg mb-8 w-full">
-        <h2 className="text-lg font-semibold mb-4">Filter</h2>
+      <div className="bg-white px-10 py-10 mb-8 w-full">
+        <h2 className="text-lg font-bold mb-4 text-purple-600">Filter</h2>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-10">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium">
               Select Category
             </label>
             <select
@@ -187,7 +187,7 @@ export default function ShopApproval() {
       </div>
 
       {/* Shop Approval Section */}
-      <h2 className="text-lg font-bold mb-4">Shop Approval</h2>
+      <h2 className="text-lg font-bold mb-4 text-purple-600">Shop Approval</h2>
       {shops.length > 0 ? (
         shops.map((shop) => (
           <div
@@ -310,7 +310,7 @@ function Modal({ shop, onClose }) {
 
         {/* Shop Logo and Name Centered */}
         <div className="flex flex-col items-center mb-6">
-          <img
+          <Image
             src={shop.shopLogo}
             alt={`${shop.shopName} Logo`}
             className="w-24 h-24 rounded-full object-cover mb-4"
