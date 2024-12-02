@@ -6,6 +6,7 @@ import Image from "next/image";
 export default function Dashboard() {
   const [shopsCount, setShopsCount] = useState(null);
   const [productsCount, setProductsCount] = useState(null);
+  const [totalProductViews, setTotalProductViews] = useState(0)
   const [error, setError] = useState(null);
 
   const API_KEY = '98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8'; 
@@ -34,6 +35,11 @@ export default function Dashboard() {
       .then((response) => {
         // Calculate the total products based on the length of the products array
         setProductsCount(response.data.products.length);
+        const totalViews = response.data.products.reduce((sum, product) => {
+          return sum + (product.views || 0); // Add product.views, defaulting to 0 if undefined
+        }, 0);
+        setTotalProductViews(totalViews);
+
       })
       .catch((err) => {
         setError("Failed to fetch products");
@@ -74,7 +80,7 @@ export default function Dashboard() {
             />
             <StatsCard
               title="Total Product Views"
-              value="1200 VIEWS"
+              value={`${totalProductViews} Views`}
               icon="fas fa-chart-line"
               buttonLabel="View Stats"
             />

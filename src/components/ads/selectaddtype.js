@@ -10,14 +10,14 @@ import {
 } from "./manageads";
 
 const SelectAdType = () => {
-  const [adsData, setAdsData] = useState([]); // State to store ads data
-  const [loading, setLoading] = useState(false); // To manage loading state
-  const [error, setError] = useState(null); // To manage error state
-  const [selectedAdType, setSelectedAdType] = useState("Banner Ad"); // State for selected ad type
+  const [adsData, setAdsData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [selectedAdType, setSelectedAdType] = useState("Banner Ad");
   const [pageTitle, setPageTitle] = useState("Manage Banner Ads");
-  const [page, setPage] = useState(1); // Current page
-  const [limit, setLimit] = useState(1); // Items per page
-  const [totalPages, setTotalPages] = useState(1); // Total pages from API response
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [totalPages, setTotalPages] = useState(1);
 
   const titles = {
     shortVideo: "Manage Short Video Ads",
@@ -26,54 +26,48 @@ const SelectAdType = () => {
     promotedAds: "Manage Promoted Ads",
   };
 
-  // Fetch ads data from the API based on adType, page, and limit
   const fetchAds = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await axios.get(
-        `http://localhost:3001/api/ads`, // API endpoint
-        {
-          params: {
-            isApproved: true,
-            adType: selectedAdType,
-            page,
-            limit,
-          },
-          headers: {
-            "Content-Type": "application/json",
-            kuchi: "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8", // Replace with your API key
-          },
-        }
-      );
+      const response = await axios.get(`http://localhost:3001/api/ads`, {
+        params: {
+          isApproved: true,
+          adType: selectedAdType,
+          page: currentPage,
+          limit,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          kuchi: "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8",
+        },
+      });
 
       const sortedAds = response.data.ads.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      ); // Sort ads by created date
+      );
       setAdsData(sortedAds);
-      setTotalPages(response.data.pagination.totalPages); // Set total pages
+      setTotalPages(response.data.pagination.totalPages);
     } catch (error) {
       console.error("Error fetching ads:", error);
-      setError(error.message); // Handle any errors
+      setError(error.message);
     } finally {
-      setLoading(false); // Stop loading once the data is fetched
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchAds();
-  }, [selectedAdType, page, limit]);
+  }, [selectedAdType, currentPage, limit]);
 
-  // Handle ad type change from dropdown
   const handleAdTypeChange = (event) => {
     const selectedType = event.target.value;
     setSelectedAdType(selectedType);
     setPageTitle(titles[selectedType] || "Select Ad Type");
-    setPage(1); // Reset to first page when ad type changes
+    setCurrentPage(1);
   };
 
-  // Handle delete functionality
   const handleDelete = async (adId) => {
     if (!window.confirm("Are you sure you want to delete this ad?")) return;
 
@@ -83,7 +77,7 @@ const SelectAdType = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            kuchi: "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8", // Replace with your API key
+            kuchi: "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8",
           },
         }
       );
@@ -99,7 +93,6 @@ const SelectAdType = () => {
     }
   };
 
-  // Render the appropriate ad component based on the selected ad type
   const renderAdComponent = () => {
     switch (selectedAdType) {
       case "Shorts Ad":
@@ -127,19 +120,16 @@ const SelectAdType = () => {
     }
   };
 
-  // Show loading or error message if needed
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="p-8">
       <div className="p-8 bg-white rounded-lg shadow-lg">
-        {/* Header */}
         <div className="flex justify-between items-center border-b pb-4 mb-6">
           <h1 className="text-2xl font-semibold">{pageTitle}</h1>
         </div>
 
-        {/* Dropdown for Ad Type Selection */}
         <div className="mb-6">
           <select
             className="w-full md:w-1/3 text-sm border border-gray-300 rounded-lg p-2"
@@ -153,37 +143,52 @@ const SelectAdType = () => {
           </select>
         </div>
 
-        {/* Render the appropriate ad component */}
         <div>{renderAdComponent()}</div>
 
-        {/* Pagination Controls */}
-        <div className="flex justify-between items-center mt-6">
-          <button
-            disabled={page <= 1}
-            className={`px-4 py-2 rounded-md ${
-              page <= 1 ? "bg-gray-300" : "bg-blue-500 text-white"
-            }`}
-            onClick={() => setPage(page - 1)}
-          >
-            Previous
-          </button>
-          <span>
-            Page {page} of {totalPages}
-          </span>
-          <button
-            disabled={page >= totalPages}
-            className={`px-4 py-2 rounded-md ${
-              page >= totalPages ? "bg-gray-300" : "bg-blue-500 text-white"
-            }`}
-            onClick={() => setPage(page + 1)}
-          >
-            Next
-          </button>
+        {/* Pagination */}
+        <div className="flex justify-center space-x-2 mt-6">
+          {totalPages > 1 && (
+            <>
+              <button
+                disabled={currentPage === 1}
+                className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600"
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                &lt;
+              </button>
+
+              {Array.from({ length: totalPages }, (_, index) => index + 1)
+                .slice(
+                  Math.max(0, currentPage - 3),
+                  Math.min(totalPages, currentPage + 2)
+                )
+                .map((page) => (
+                  <button
+                    key={page}
+                    className={`px-3 py-1 rounded-lg ${
+                      page === currentPage
+                        ? "bg-purple-500 text-white"
+                        : "bg-white text-gray-600 border border-gray-300"
+                    }`}
+                    onClick={() => setCurrentPage(page)}
+                  >
+                    {page}
+                  </button>
+                ))}
+
+              <button
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600"
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                &gt;
+              </button>
+            </>
+          )}
         </div>
-      </div>         
+      </div>
     </div>
   );
 };
 
 export default SelectAdType;
-                                                                   

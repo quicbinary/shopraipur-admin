@@ -93,7 +93,6 @@ export default function AddProduct() {
       // Step 2: Create FormData for the image upload
       const imageData = new FormData();
       imageData.append("file", imageFile);
-
       // Step 3: Upload the image
       const imageResponse = await axios.post(
         "http://localhost:3001/api/upload",
