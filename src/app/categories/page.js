@@ -59,7 +59,7 @@ export default function Page() {
         { subcategories: updatedSubcategories }, // Pass the updated array
         {
           headers: {
-            kuchi: "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8",
+            kuchi: `98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8`
           },
         }
       );
@@ -75,6 +75,8 @@ export default function Page() {
         )
       );
 
+  
+      // Reset the modal and form state
       setSubCategoryName(""); // Clear subcategory name input
     } catch (error) {
       console.error("Error adding subcategory:", error);
@@ -217,10 +219,6 @@ export default function Page() {
     }
   };
 
-  // const handleFileChange = (e) => {
-  //   setFormData({ ...formData, productImages: e.target.files[0] });
-  // };
-
   const handleAddCategory = async (e) => {
     e.preventDefault();
   
@@ -228,7 +226,14 @@ export default function Page() {
       alert("Please provide both category name and image.");
       return;
     }
-  
+
+    const newCategory = {
+      name: categoryName,
+      image: categoryImage,
+      subcategories: [],
+      totalProducts: 0,
+    };
+
     try {
       // Step 1: Create FormData for the image upload
       const imageData = new FormData();
@@ -461,7 +466,9 @@ function AddModal({ isOpen, onClose, onSubmit, categoryName, setCategoryName, ha
             <div className="w-full h-32 border-dashed border-2 border-gray-300 flex items-center justify-center rounded-lg">
               <input
                 type="file"
+
                 onChange={handleImageChange}
+
                 className="flex items-center w-full text-sm p-2"
               />
             </div>
