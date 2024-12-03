@@ -139,14 +139,14 @@ export default function ProductApproval() {
       <div className="grid grid-cols-4 gap-6 mb-8">
         {/* Category Filter */}
         <div>
-          <label className="block font-medium font-montserrat text-black ">
+          <label className="block font-medium font-montserrat text-sm text-gray-700 ">
             Select Category
           </label>
           <select
             name="category"
             value={filters.category}
             onChange={handleFilterChange}
-            className="block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
+            className="block w-full text-md p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
           >
             <option value="">Select Category</option>
             {categories.map((category) => (
@@ -160,12 +160,12 @@ export default function ProductApproval() {
         {/* Subcategory Filter */}
         {filters.category && (
           <div>
-            <label className="block font-medium font-montserrat text-black">Subcategory</label>
+            <label className="block font-medium font-montserrat text-sm text-gray-700">Subcategory</label>
             <select
               name="subcategory"
               value={filters.subcategory}
               onChange={handleFilterChange}
-              className="block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
+              className="block w-full text-md p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
             >
               <option value="">Select Subcategory</option>
               {subcategories.map((subcategory, index) => (
@@ -179,23 +179,23 @@ export default function ProductApproval() {
 
         {/* Date Range Filters */}
         <div>
-          <label className="block font-medium font-montserrat text-black">From Date</label>
+          <label className="block font-medium text-sm font-montserrat text-gray-700">From Date</label>
           <input
             type="date"
             name="fromDate"
             value={filters.fromDate}
             onChange={handleFilterChange}
-            className="block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
+            className="block w-full text-sm p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
           />
         </div>
         <div>
-          <label className="block font-medium font-montserrat text-black">To Date</label>
+          <label className="block font-medium text-sm font-montserrat text-gray-700">To Date</label>
           <input
             type="date"
             name="toDate"
             value={filters.toDate}
             onChange={handleFilterChange}
-            className="block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
+            className="block w-full text-sm p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
           />
         </div>
       </div>
@@ -268,7 +268,7 @@ export default function ProductApproval() {
             </div>
           ))
         ) : (
-          <p className="font-medium font-montserrat">No products available for approval.</p>
+          <p className="font-medium font-montserrat text-center text-gray-700">No products available for approval.</p>
         )}
       </div>
 

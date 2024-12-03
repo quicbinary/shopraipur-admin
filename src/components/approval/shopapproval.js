@@ -142,11 +142,11 @@ export default function ShopApproval() {
       <div className="bg-white mb-8 w-full">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <label className="block text-sm text-gray-700 font-medium font-montserrat">
+            <label className="block text-md  font-medium font-montserrat">
               Select Category
             </label>
             <select
-              className="mt-1 block w-[60%] p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
+              className="mt-1 block w-[60%] p-2 text-md border border-gray-300 rounded-lg font-medium font-montserrat"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
@@ -165,7 +165,7 @@ export default function ShopApproval() {
               </label>
               <input
                 type="date"
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
+                className="mt-1 block text-sm w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
               />
@@ -176,7 +176,7 @@ export default function ShopApproval() {
               </label>
               <input
                 type="date"
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
+                className="mt-1 block w-full text-sm p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
               />
@@ -234,7 +234,7 @@ export default function ShopApproval() {
           </div>
         ))
       ) : (
-        <div className="bg-white p-6 rounded-lg text=-center font-medium font-montserrat">
+        <div className="bg-white p-6 rounded-lg text-gray-700 text-center font-medium font-montserrat">
           No shops pending approval
         </div>
       )}

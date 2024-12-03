@@ -116,13 +116,13 @@ export default function AdsApproval() {
         <h1 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Ads Approval</h1>
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 mb-1 font-montserrat">
+            <label className="block text-sm font-medium mb-1 font-montserrat">
               Ad Type
             </label>
             <select
               value={adType}
               onChange={(e) => setAdType(e.target.value)}
-              className="w-full font-medium font-montserrat px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-96 font-medium font-montserrat px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
               <option value="Banner Ad">Homepage Banner</option>
               <option value="Story Ad">Story Ad</option>
@@ -136,7 +136,7 @@ export default function AdsApproval() {
             </label>
             <input
               type="date"
-              className="font-montserrat w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="font-montserrat w-40 px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
               value={fromDate}
               onChange={(e) => setFromDate(e.target.value)}
             />
@@ -148,7 +148,7 @@ export default function AdsApproval() {
             </label>
             <input
               type="date"
-              className="font-montserrat w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="font-montserrat w-40 px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
               value={toDate}
               onChange={(e) => setToDate(e.target.value)}
             />
