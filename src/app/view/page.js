@@ -63,7 +63,7 @@ export default function Dashboard() {
       <Header title={"Views"}/>
       </div>
         {/* Select Section */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="bg-white p-6 mb-8 rounded-lg shadow-md">
           <label
             htmlFor="adType"
             className="block text-xl font-medium text-purple-600 mb-2 font-montserrat"
