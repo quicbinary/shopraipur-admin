@@ -136,17 +136,17 @@ export default function ShopApproval() {
   };
 
   return (
-    <div className="p-6 w-full bg-white rounded-lg shadow-md">
+    <div className="p-8 w-full bg-white rounded-lg shadow-md">
       {/* Filter Section */}
-        <h2 className="text-lg mb-4 text-purple-600 font-semibold font-montserrat">Filter</h2>
-      <div className="bg-white px-10 mb-8 w-full">
+        <h2 className="text-lg mb-4 text-purple-600 font-semibold font-montserrat">Shop Approval</h2>
+      <div className="bg-white mb-8 w-full">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <label className="block text-sm text-gray-700 font-medium font-montserrat">
               Select Category
             </label>
             <select
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
+              className="mt-1 block w-[60%] p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
@@ -186,7 +186,6 @@ export default function ShopApproval() {
       </div>
 
       {/* Shop Approval Section */}
-      <h2 className="text-lg font-semibold font-montserrat mb-4 text-purple-600 ">Shop Approval</h2>
       {shops.length > 0 ? (
         shops.map((shop) => (
           <div
