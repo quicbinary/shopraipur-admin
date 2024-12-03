@@ -7,6 +7,21 @@ export default function Dashboard() {
   const [productsCount, setProductsCount] = useState(null);
   const [totalProductViews, setTotalProductViews] = useState(0)
   const [error, setError] = useState(null);
+  const [notFound, setNotFound] = useState(false);
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      setNotFound(true); // Mark as not found if no user is stored
+    }
+  }, []);
+
+  if (notFound) {
+    return <p>404 - oops</p>; 
+  }
 
   const API_KEY = '98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8'; 
 

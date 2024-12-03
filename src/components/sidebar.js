@@ -7,7 +7,19 @@ import { MdInsights } from "react-icons/md";
 const Sidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
-
+  const handleLogout = () => {
+    // Show a confirmation dialog
+    const confirmation = window.confirm("Are you sure you want to log out?");
+    
+    if (confirmation) {
+      // If user confirms, remove user data and redirect
+      localStorage.removeItem("user");
+      router.replace("/");
+    } else {
+      // If user cancels, do nothing
+      alert("Logout canceled!");
+    }
+  };
   // Updated menu items with React Icon components
   const menuItems = [
 
@@ -48,7 +60,7 @@ const Sidebar = () => {
       </nav>
       <button
         className="mt-10 w-full bg-purple-500 p-3 rounded-md font-semibold text-white"
-        onClick={() => navigateTo("/logout")} // Example logout redirect
+        onClick={handleLogout} // Example logout redirect
       >
         Log Out
       </button>

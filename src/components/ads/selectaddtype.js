@@ -48,7 +48,7 @@ const SelectAdType = () => {
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
       setAdsData(sortedAds);
-      setTotalPages(response.data.pagination.totalPages);
+      setTotalPages(response?.data?.pagination?.totalPages);
     } catch (error) {
       console.error("Error fetching ads:", error);
       setError(error.message);

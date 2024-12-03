@@ -13,7 +13,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const apiKey = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8"; // Replace with your actual API key
-  const apiUrl = `http://localhost:3001/api/vendor?email=${email}`; // Replace with your API endpoint
+  const apiUrl = `http://localhost:3001/api/admins?email=${email}`; // Replace with your API endpoint
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ export default function LoginForm() {
       });
   
       const user = response?.data[0];
-  
+     
       if (user) {
         const isPasswordMatch = await bcrypt.compare(password, user.password);
         if (isPasswordMatch) {
