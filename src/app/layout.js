@@ -11,6 +11,7 @@ const montserrat = Montserrat({
   variable: '--font-montserrat', // This will create a variable to reference
   weight: ['300', '400', '500', '600', '700'], // Load multiple weights
 });
+ 
 export default function RootLayout({ children }) {
   const pathname = usePathname(); // Get the current path
 
