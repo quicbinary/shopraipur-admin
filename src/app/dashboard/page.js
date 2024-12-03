@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios"; // Importing axios
-import Image from "next/image";
+import Header from "@/components/header";
 export default function Dashboard() {
   const [shopsCount, setShopsCount] = useState(null);
   const [productsCount, setProductsCount] = useState(null);
@@ -72,8 +72,13 @@ export default function Dashboard() {
 
   return (
     <div className="flex bg-gray-100 min-h-screen">
+      
       {/* Main Content */}
       <div className="flex-1 p-10 flex flex-col items-center rounded-lg">
+        {/* Header */}
+        <div className="felx w-full mb-6">
+      <Header/>
+      </div>
         {/* Cards Container */}
         <div className="bg-white p-10 rounded-lg shadow-lg w-full ">
           <div className="flex flex-col gap-8 items-center font-montserrat font-medium">

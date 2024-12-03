@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
+import Header from "@/components/header";
 
 export default function Dashboard() {
   const [selectedAdType, setSelectedAdType] = useState(""); // Default to empty
@@ -54,11 +55,15 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 p-10">
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto p-6">
+      <main>
+      {/* Header */}
+      <div className="w-full mb-6">
+      <Header/>
+      </div>
         {/* Select Section */}
-        <div className="bg-white p-6 rounded-lg shadow mb-10">
+        <div className="bg-white p-6 rounded-lg shadow-md">
           <label
             htmlFor="adType"
             className="block text-xl font-medium text-purple-600 mb-2 font-montserrat"

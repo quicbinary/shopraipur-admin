@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Header from "../header";
 
 export default function AddProduct() {
   const [formData, setFormData] = useState({
@@ -152,6 +153,7 @@ export default function AddProduct() {
   };
 
   return (
+    <>
     <div className="px-10 py-5 flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md w-full">
         <h1 className="text-xl font-semibold font-montserrat mb-6 text-purple-600">Add Product</h1>
@@ -348,5 +350,6 @@ export default function AddProduct() {
         </form>
       </div>
     </div>
+    </>
   );
 }

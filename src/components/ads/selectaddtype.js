@@ -8,6 +8,7 @@ import {
   ManageStoryAds,
   ManagePromotedAds,
 } from "./manageads";
+import Header from "../header";
 
 const SelectAdType = () => {
   const [adsData, setAdsData] = useState([]);
@@ -125,6 +126,10 @@ const SelectAdType = () => {
 
   return (
     <div className="p-10 bg-gray-100">
+      {/* Header */}
+      <div className="felx w-full mb-6">
+      <Header/>
+      </div>
       <div className="p-8 bg-white rounded-lg shadow-md">
         <div className="flex justify-between items-center border-b pb-4 mb-6">
           <h1 className="font-semibold  font-montserrat text-xl text-purple-600">{pageTitle}</h1>

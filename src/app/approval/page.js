@@ -4,6 +4,7 @@ import Image from 'next/image';
 import ShopApproval from "@/components/approval/shopapproval";
 import Productapproval from "@/components/approval/productapproval"
 import Adsapproval from "@/components/approval/adsapproval";
+import Header from "@/components/header"
 export default function ApprovalPage() {
   return (
     <>
@@ -20,6 +21,7 @@ export default function ApprovalPage() {
         />
       </Head>
       <div className="bg-gray-100 p-10 space-y-10">
+        <Header/>
         <ShopApproval />
         <Productapproval/>
         <Adsapproval/>

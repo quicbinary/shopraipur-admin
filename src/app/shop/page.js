@@ -4,6 +4,7 @@ import axios from "axios";
 import Image from "next/image";
 import { FaTrashAlt, FaMapMarkerAlt } from "react-icons/fa"; // Import React Icons for trash and location
 import Link from "next/link"; // Import Link for navigation
+import Header from "@/components/header"
 
 const Shops = () => {
   const [shops, setShops] = useState([]);
@@ -64,6 +65,10 @@ const Shops = () => {
   return (
     <div className="bg-gray-100 h-screen">
       <div className="flex-grow p-10">
+       {/* Header */}
+       <div className="felx w-full mb-6">
+      <Header/>
+      </div>
         <div className="bg-white shadow-md rounded-lg p-6 mt-8">
           <h3 className="text-lg font-semibold font-montserrat text-purple-500 mb-4">
             Shops List
@@ -140,21 +145,3 @@ const Shops = () => {
 };
 
 export default Shops;
-
-function Header() {
-  return (
-    <div className="flex justify-between items-center bg-white p-5 rounded-lg shadow-lg mb-8 w-full">
-      <h1 className="text-2xl font-semibold text-gray-800">Shops</h1>
-      <div className="flex items-center space-x-2">
-        <Image
-          src="/assets/logo.jpg"
-          alt="Profile"
-          width={150}
-          height={300}
-          className="w-10 h-10 rounded-full"
-        />
-        <span className="font-semibold text-gray-800">Nikhil Mitra</span>
-      </div>
-    </div>
-  );
-}

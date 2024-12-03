@@ -4,6 +4,7 @@ import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import Image from "next/image";
+import Header from "@/components/header"
 
 export default function Page() {
   const [categories, setCategories] = useState([]);
@@ -303,6 +304,10 @@ export default function Page() {
     <div>
       {/* Main UI */}
       <div className="flex-grow p-10 bg-gray-100 h-screen">
+       {/* Header */}
+       <div className="felx w-full mb-6">
+      <Header/>
+      </div>
         <div className="bg-white shadow-md rounded-lg p-6">
           <h3 className="text-lg font-semibold mb-4 text-purple-600 font-montserrat">Category List</h3>
 

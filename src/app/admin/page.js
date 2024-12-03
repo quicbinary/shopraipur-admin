@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
+import Header from "@/components/header";
+
 
 function Page() {
   const [admins, setAdmins] = useState([]);
@@ -188,6 +190,10 @@ function Page() {
   return (
     <div className="p-10 bg-gray-100">
       {/* Admin Table */}
+      {/* Header */}
+      <div className="felx w-full mb-6">
+      <Header/>
+      </div>
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Admin</h2>
         {loading ? (

@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function Header() {
   return (
-    <header className="flex justify-between items-center p-6 bg-white shadow-lg">
+    <header className="flex justify-between items-center p-6 bg-white rounded-md shadow-md">
       <h1 className="text-2xl font-bold text-gray-800">Approval Platform</h1>
       <div className="flex items-center space-x-4">
         <div className="flex items-center">
