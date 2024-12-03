@@ -156,7 +156,7 @@ export default function AddProduct() {
     <div className="bg-gray-100">
     {/* Header */}
     <div className="w-full p-10">
-      <Header/>
+      <Header title={"Products"}/>
       </div>
     <div className="px-10 pb-6 flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md w-full">

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
-import { FaRegEdit } from "react-icons/fa";
+import { RiEdit2Fill } from "react-icons/ri";
 import Image from "next/image";
 import Header from "@/components/header"
 
@@ -372,7 +372,7 @@ export default function Page() {
                       className="bg-purple-500 text-white px-2 py-2 mt-3 rounded hover:bg-purple-600"
                       onClick={() => handleOpenEditModal(category)}
                     >
-                      <FaRegEdit className="text-2xl"/>
+                      <RiEdit2Fill className="text-2xl"/>
                     </button>
                     <button
                       className="bg-red-500 text-white px-2 py-2 mt-3 rounded hover:bg-red-600"
