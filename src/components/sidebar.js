@@ -15,6 +15,7 @@ const Sidebar = () => {
     { path: "/ads", icon: "fa-solid fa-arrow-trend-up", label: "Ads" },
     { path: "/profile", icon: "fa-solid fa-circle-user", label: "My Profile" },
     { path: "/view", icon: "fa-solid fa-chart-line", label: "Views" },
+    { path: "/push", icon: "fa-solid fa-chart-line", label: "Push" },
   ];
 
   const navigateTo = (path) => {
