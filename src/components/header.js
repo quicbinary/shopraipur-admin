@@ -1,20 +1,36 @@
 // components/Header.js
-import Image from 'next/image';
+"use client";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
-export default function Header() {
+export default function Header({ title }) {
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    // Retrieve username from localStorage
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser); // Default to 'User' if no name is found
+    }
+  }, []);
+
   return (
     <header className="flex justify-between items-center p-6 bg-white rounded-md shadow-md">
-      <h1 className="text-2xl font-bold text-gray-800">Approval Platform</h1>
+      <h1 className="text-xl font-semibold text-gray-800 font-montserrat">{title}</h1>
       <div className="flex items-center space-x-4">
         <div className="flex items-center">
-          <Image
-            src="/assets/logo.jpg"
-            alt="User"
-            width={40}
-            height={40}
-            className="rounded-full border-2 border-gray-300"
-          />
-          <span className="text-sm font-medium text-gray-700 ml-2">Nikhil Mitra</span>
+          <div
+            className="relative w-10 h-10 rounded-full inline-flex items-center justify-center"
+            style={{ backgroundColor: user.color }}
+          >
+            <span className="text-white font-bold text-lg">
+              {user?.adminName?.charAt(0)?.toUpperCase()}
+            </span>
+          </div>
+          <span className="text-md font-montserrat font-semibold text-gray-700 ml-2">
+            {user?.adminName}
+          </span>
         </div>
       </div>
     </header>

@@ -77,7 +77,7 @@ export default function Dashboard() {
       <div className="flex-1 p-10 flex flex-col items-center rounded-lg">
         {/* Header */}
         <div className="felx w-full mb-6">
-      <Header/>
+      <Header title={"Dashboard"}/>
       </div>
         {/* Cards Container */}
         <div className="bg-white p-10 rounded-lg shadow-lg w-full ">

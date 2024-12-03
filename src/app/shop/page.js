@@ -67,7 +67,7 @@ const Shops = () => {
       <div className="flex-grow p-10">
        {/* Header */}
        <div className="felx w-full mb-6">
-      <Header/>
+      <Header title={"Shops"}/>
       </div>
         <div className="bg-white shadow-md rounded-lg p-6 mt-8">
           <h3 className="text-lg font-semibold font-montserrat text-purple-500 mb-4">

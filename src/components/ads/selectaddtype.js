@@ -128,7 +128,7 @@ const SelectAdType = () => {
     <div className="p-10 bg-gray-100">
       {/* Header */}
       <div className="felx w-full mb-6">
-      <Header/>
+      <Header title={"Ads"}/>
       </div>
       <div className="p-8 bg-white rounded-lg shadow-md">
         <div className="flex justify-between items-center border-b pb-4 mb-6">

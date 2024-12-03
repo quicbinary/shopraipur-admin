@@ -41,7 +41,7 @@ const Sidebar = () => {
 
   return (
     <div className="bg-purple-600 text-white min-h-screen w-64 p-6 sticky top-0">
-      <div className="text-2xl font-bold mb-10">Shop Raipur</div>
+      <div className="text-2xl font-montserrat font-bold mb-10">ShopRaipur</div>
       <nav className="flex flex-col space-y-2">
         {menuItems.map((item) => (
           <button
@@ -59,10 +59,10 @@ const Sidebar = () => {
         ))}
       </nav>
       <button
-        className="mt-10 w-full bg-purple-500 p-3 rounded-md font-semibold text-white"
+        className="mt-10 w-full bg-purple-500 p-3 rounded-md font-semibold font-montserrat font-medium text-white"
         onClick={handleLogout} // Example logout redirect
       >
-        Log Out
+        Logout
       </button>
     </div>
   );
