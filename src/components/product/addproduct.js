@@ -153,8 +153,12 @@ export default function AddProduct() {
   };
 
   return (
-    <>
-    <div className="px-10 py-5 flex items-center justify-center bg-gray-100">
+    <div className="bg-gray-100">
+    {/* Header */}
+    <div className="w-full p-10">
+      <Header/>
+      </div>
+    <div className="px-10 pb-6 flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md w-full">
         <h1 className="text-xl font-semibold font-montserrat mb-6 text-purple-600">Add Product</h1>
         <form onSubmit={handleSubmit}>
@@ -350,6 +354,6 @@ export default function AddProduct() {
         </form>
       </div>
     </div>
-    </>
+    </div>
   );
 }
