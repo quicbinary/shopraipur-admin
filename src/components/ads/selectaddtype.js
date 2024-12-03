@@ -124,15 +124,15 @@ const SelectAdType = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="p-8">
-      <div className="p-8 bg-white rounded-lg shadow-lg">
+    <div className="p-10 bg-gray-100">
+      <div className="p-8 bg-white rounded-lg shadow-md">
         <div className="flex justify-between items-center border-b pb-4 mb-6">
-          <h1 className="text-2xl font-semibold">{pageTitle}</h1>
+          <h1 className="font-semibold  font-montserrat text-xl text-purple-600">{pageTitle}</h1>
         </div>
 
         <div className="mb-6">
           <select
-            className="w-full md:w-1/3 text-sm border border-gray-300 rounded-lg p-2"
+            className="w-full md:w-1/3 text-sm border border-gray-300 rounded-lg p-2 font-medium font-montserrat"
             value={selectedAdType}
             onChange={handleAdTypeChange}
           >

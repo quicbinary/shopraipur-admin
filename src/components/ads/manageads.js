@@ -1,18 +1,19 @@
 import React from "react";
 import Image from "next/image";
+import { MdDelete } from "react-icons/md";
 // ManageBannerAds Component
 export const ManageBannerAds = ({ adsData, handleDelete }) => {
   return (
     <div className="p-8">
-      <div className="p-8 bg-white rounded-lg shadow-lg">
+      <div className="p-8 bg-white rounded-lg shadow-md">
         <div className="overflow-x-auto">
           <table className="min-w-full border border-gray-200">
             <thead className="bg-gray-100">
               <tr>
-                <th className="p-4 text-left text-sm font-medium border-b">Banner Image</th>
-                <th className="p-4 text-left text-sm font-medium border-b">Banner ID</th>
-                <th className="p-4 text-center text-sm font-medium border-b">Delete</th>
-                <th className="p-4 text-left text-sm font-medium border-b">Select Date</th>
+                <th className="p-4 text-left text-sm font-medium font-montserrat border-b">Banner Image</th>
+                <th className="p-4 text-left text-sm font-medium font-montserrat border-b">Banner ID</th>
+                <th className="p-4 text-center text-sm font-medium font-montserrat border-b">Delete</th>
+                <th className="p-4 text-left text-sm font-medium font-montserrat border-b">Select Date</th>
               </tr>
             </thead>
             <tbody>
@@ -28,12 +29,12 @@ export const ManageBannerAds = ({ adsData, handleDelete }) => {
                     />
                   </td>
                   <td className="p-4 border-b">{ad._id}</td>
-                  <td className="p-4 border-b text-center">
+                  <td className="p-4 border-b text-center ">
                     <button
                       onClick={() => handleDelete(ad._id)}
-                      className="bg-red-500 hover:bg-red-600 text-white rounded-lg p-2"
+                      className="bg-red-500 hover:bg-red-600 text-white rounded-md p-2"
                     >
-                      Delete
+                      <MdDelete className="text-2xl" />
                     </button>
                   </td>
                   <td className="p-4 border-b">
@@ -41,13 +42,13 @@ export const ManageBannerAds = ({ adsData, handleDelete }) => {
                       <input
                         type="date"
                         value={ad.startDate ? ad.startDate.slice(0, 10) : ""}
-                        className="w-full text-sm border border-gray-300 rounded-lg p-2"
+                        className="w-full text-sm border border-gray-300 rounded-lg p-2 font-medium font-montserrat"
                         readOnly
                       />
                       <input
                         type="date"
                         value={ad.endDate ? ad.endDate.slice(0, 10) : ""}
-                        className="w-full text-sm border border-gray-300 rounded-lg p-2"
+                        className="w-full text-sm border border-gray-300 rounded-lg p-2 font-medium font-montserrat"
                         readOnly
                       />
                     </div>
@@ -66,7 +67,7 @@ export const ManageBannerAds = ({ adsData, handleDelete }) => {
 export const ManageShortVideoAds = ({ adsData, handleDelete }) => {
   return (
     <div className="p-8">
-      <div className="p-8 bg-white rounded-lg shadow-lg">
+      <div className="p-8 bg-white rounded-lg shadow-md">
         <div className="overflow-x-auto">
           <table className="min-w-full border border-gray-200">
             <thead className="bg-gray-100">
@@ -91,9 +92,9 @@ export const ManageShortVideoAds = ({ adsData, handleDelete }) => {
                   <td className="p-4 border-b text-center">
                     <button
                       onClick={() => handleDelete(ad._id)}
-                      className="bg-red-500 hover:bg-red-600 text-white rounded-lg p-2"
+                      className="bg-red-500 hover:bg-red-600 text-white rounded-md p-2"
                     >
-                      Delete
+                     <MdDelete className="text-2xl" />
                     </button>
                   </td>
                   <td className="p-4 border-b">
@@ -126,7 +127,7 @@ export const ManageShortVideoAds = ({ adsData, handleDelete }) => {
 export const ManageStoryAds = ({ adsData, handleDelete }) => {
   return (
     <div className="p-8">
-      <div className="p-8 bg-white rounded-lg shadow-lg">
+      <div className="p-8 bg-white rounded-lg shadow-md">
         <div className="overflow-x-auto">
           <table className="min-w-full border border-gray-200">
             <thead className="bg-gray-100">
@@ -151,9 +152,9 @@ export const ManageStoryAds = ({ adsData, handleDelete }) => {
                   <td className="p-4 border-b text-center">
                     <button
                       onClick={() => handleDelete(ad._id)}
-                      className="bg-red-500 hover:bg-red-600 text-white rounded-lg p-2"
+                      className="bg-red-500 hover:bg-red-600 text-white rounded-md p-2"
                     >
-                      Delete
+                      <MdDelete className="text-2xl" />
                     </button>
                   </td>
                   <td className="p-4 border-b">
@@ -188,7 +189,7 @@ export const ManagePromotedAds = ({ adsData, handleDelete }) => {
 
   return (
     <div className="p-8">
-      <div className="p-8 bg-white rounded-lg shadow-lg">
+      <div className="p-8 bg-white rounded-lg shadow-md">
         <div className="overflow-x-auto">
           <table className="min-w-full border border-gray-200">
             <thead className="bg-gray-100">
@@ -215,9 +216,9 @@ export const ManagePromotedAds = ({ adsData, handleDelete }) => {
                   <td className="p-4 border-b text-center">
                     <button
                       onClick={() => handleDelete(ad._id)}
-                      className="bg-red-500 hover:bg-red-600 text-white rounded-lg p-2"
+                      className="bg-red-500 hover:bg-red-600 text-white rounded-md p-2"
                     >
-                      Delete
+                      <MdDelete className="text-2xl" />
                     </button>
                   </td>
                   <td className="p-4 border-b">

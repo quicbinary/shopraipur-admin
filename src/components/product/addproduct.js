@@ -152,20 +152,20 @@ export default function AddProduct() {
   };
 
   return (
-    <div className="p-8 flex items-center justify-center bg-white-100">
+    <div className="px-10 py-5 flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md w-full">
-        <h1 className="text-2xl font-bold mb-6">Add Product</h1>
+        <h1 className="text-xl font-semibold font-montserrat mb-6 text-purple-600">Add Product</h1>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium font-montserrat text-gray-700 mb-1">
                 Select Shop
               </label>
               <select
                 name="shopId"
                 value={formData.shopId}
                 onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-2"
+                className="w-full border border-gray-300 rounded-lg p-2 text-sm font-medium font-montserrat"
               >
                 <option value="">Select the shop</option>
                 {shops.map((shop) => (
@@ -177,7 +177,7 @@ export default function AddProduct() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm text-gray-700 mb-1 font-medium font-montserrat">
                 Product Name
               </label>
               <input
@@ -185,13 +185,13 @@ export default function AddProduct() {
                 name="productName"
                 value={formData.productName}
                 onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-2"
+                className="w-full border border-gray-300 rounded-lg p-2 text-sm font-medium font-montserrat"
                 placeholder="Enter product name"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm text-gray-700 mb-1 font-medium font-montserrat">
                 Original Price
               </label>
               <input
@@ -199,13 +199,13 @@ export default function AddProduct() {
                 name="productOriginalPrice"
                 value={formData.productOriginalPrice}
                 onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-2"
+                className="w-full border border-gray-300 rounded-lg p-2 text-sm font-medium font-montserrat"
                 placeholder="Enter original price"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm text-gray-700 mb-1 font-medium font-montserrat">
                 Discounted Price
               </label>
               <input
@@ -213,20 +213,20 @@ export default function AddProduct() {
                 name="productDiscountedPrice"
                 value={formData.productDiscountedPrice}
                 onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-2"
+                className="w-full border border-gray-300 rounded-lg p-2 text-sm font-medium font-montserrat"
                 placeholder="Enter discounted price"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium font-montserrat text-gray-700 mb-1">
                 Product Categories
               </label>
               <select
                 name="productCategory"
                 value={formData.productCategory}
                 onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-2"
+                className="w-full border border-gray-300 rounded-lg p-2 text-sm font-medium font-montserrat"
               >
                 <option value="">Select Product Categories</option>
                 {categories.map((category) => (
@@ -238,14 +238,14 @@ export default function AddProduct() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium font-montserrat text-gray-700 mb-1">
                 Product Sub Categories
               </label>
               <select
                 name="productSubCategory"
                 value={formData.productSubCategory}
                 onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-2"
+                className="w-full border border-gray-300 rounded-lg p-2 text-sm font-medium font-montserrat"
                 disabled={!formData.productCategory}
               >
                 <option value="">Select Product Sub Categories</option>
@@ -258,7 +258,7 @@ export default function AddProduct() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium font-montserrat text-gray-700 mb-1">
                 Add Tags
               </label>
               <input
@@ -266,38 +266,38 @@ export default function AddProduct() {
                 name="tags"
                 value={formData.tags}
                 onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-2"
+                className="w-full border border-gray-300 rounded-lg p-2 text-sm font-medium font-montserrat"
                 placeholder="Enter tags, separated by commas"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium font-montserrat text-gray-700 mb-1">
                 Upload Product Image
               </label>
               <input
                 type="file"
                 name="productImages"
                 onChange={handleFileChange}
-                className="w-full border border-gray-300 rounded-lg p-2"
+                className="w-full border border-gray-300 rounded-lg p-2 text-sm font-medium font-montserrat"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium font-montserrat text-gray-700 mb-1">
                 Product Description
               </label>
               <textarea
                 name="productDescription"
                 value={formData.productDescription}
                 onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-2"
+                className="w-full border border-gray-300 rounded-lg p-2 txt-sm font-medium font-montserrat"
                 placeholder="Enter product description"
               ></textarea>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium font-montserrat text-gray-700 mb-1">
                 Price Type
               </label>
               <div className="flex items-center gap-4">
@@ -315,7 +315,7 @@ export default function AddProduct() {
                     }
                     className="mr-2"
                   />
-                  Fixed
+                  <p className="text-sm font-medium font-montserrat"> Fixed</p>
                 </label>
                 <label className="flex items-center">
                   <input
@@ -331,7 +331,7 @@ export default function AddProduct() {
                     }
                     className="mr-2"
                   />
-                  Negotiable
+                 <p className="text-sm font-medium font-montserrat"> Negotiable</p>
                 </label>
               </div>
             </div>
@@ -340,7 +340,7 @@ export default function AddProduct() {
           <div className="mt-6 flex justify-end">
             <button
               type="submit"
-              className="w-44 bg-purple-600 text-white py-2 rounded-lg font-medium hover:bg-purple-700"
+              className="w-44 bg-purple-600 text-white py-2 rounded-lg font-medium font-montserrat text-sm hover:bg-purple-700"
             >
               Submit
             </button>

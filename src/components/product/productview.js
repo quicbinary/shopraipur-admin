@@ -71,17 +71,17 @@ export default function ProductGrid() {
   const subcategories = selectedCategoryObj ? selectedCategoryObj.subcategories : [];
 
   return (
-    <div className="bg-white-100 p-8">
+    <div className="bg-gray-100 px-10 py-5">
       <div className="bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-6">Product Views</h1>
+        <h1 className="text-xl font-semibold font-montserrat mb-6 text-purple-600">Product Views</h1>
         {/* Filter Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium font-montserrat text-gray-700 mb-1">
               Select Category
             </label>
             <select
-              className="w-full border border-gray-300 rounded-lg p-2"
+              className="w-full border border-gray-300 rounded-lg p-2 font-medium font-montserrat"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
@@ -94,11 +94,11 @@ export default function ProductGrid() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium font-montserrat text-gray-700 mb-1">
               Select Subcategory
             </label>
             <select
-              className="w-full border border-gray-300 rounded-lg p-2"
+              className="w-full border border-gray-300 rounded-lg p-2 font-medium font-montserrat"
               value={selectedSubcategory}
               onChange={(e) => setSelectedSubcategory(e.target.value)}
             >
@@ -117,7 +117,7 @@ export default function ProductGrid() {
           {products.map((product) => (
             <div
               key={product._id}
-              className="flex flex-col bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden"
+              className="flex flex-col bg-white border border-gray-300 rounded-lg shadow-md overflow-hidden"
             >
               {/* Image Section */}
               <div className="relative h-40 mb-4 flex items-center justify-center">
@@ -132,20 +132,20 @@ export default function ProductGrid() {
 
               {/* View Count */}
               <div className="flex items-center justify-between mb-2 mx-3">
-                <span className="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                <span className="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium font-montserrat">
                   View Count
                 </span>
-                <span className="text-purple-600 font-semibold text-lg">
+                <span className="text-purple-600 font-semibold text-lg font-montserrat">
                   {product.views || 0} {/* Fallback to 0 if views are missing */}
                 </span>
               </div>
 
               {/* Product Details Section */}
               <div className="flex-grow px-4">
-                <h3 className="text-lg font-bold text-gray-800">
+                <h3 className="text-sm font-semibold text-gray-800 font-montserrat">
                   {product.productName}
                 </h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 font-medium font-montserrat">
                   {product.productDescription.length > 40
                     ? `${product.productDescription.slice(0, 40)}...`
                     : product.productDescription}
@@ -154,11 +154,11 @@ export default function ProductGrid() {
 
               {/* Price Section */}
               <div className="mt-auto px-4 py-4 bg-white">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center font-medium font-montserrat text-sm">
                   <span className="line-through text-gray-400">
                     ₹{product.productOriginalPrice}
                   </span>
-                  <span className="text-purple-600 font-bold text-lg">
+                  <span className="text-purple-600 font-semibold font-montserrat text-sm">
                     ₹{product.productDiscountedPrice}
                   </span>
                 </div>

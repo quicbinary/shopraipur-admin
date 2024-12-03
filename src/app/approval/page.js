@@ -1,7 +1,6 @@
 // pages/approval.js
 import Head from 'next/head';
 import Image from 'next/image';
-import Header from "@/components/header";
 import ShopApproval from "@/components/approval/shopapproval";
 import Productapproval from "@/components/approval/productapproval"
 import Adsapproval from "@/components/approval/adsapproval";
@@ -21,7 +20,6 @@ export default function ApprovalPage() {
         />
       </Head>
       <div className="bg-gray-100 p-10 space-y-10">
-        <Header />
         <ShopApproval />
         <Productapproval/>
         <Adsapproval/>

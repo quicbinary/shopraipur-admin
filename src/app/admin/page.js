@@ -29,7 +29,8 @@ function Page() {
 
   const fetchAdmins = async () => {
     try {
-      const apiKey = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
+      const apiKey =
+        "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
       const response = await axios.get("http://localhost:3001/api/admins", {
         headers: {
           kuchi: `${apiKey}`,
@@ -84,7 +85,8 @@ function Page() {
     }
 
     try {
-      const apiKey = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
+      const apiKey =
+        "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
       const response = await axios.post(
         "http://localhost:3001/api/admins",
         {
@@ -154,7 +156,8 @@ function Page() {
     }
 
     try {
-      const apiKey = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
+      const apiKey =
+        "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
       await axios.put(
         `http://localhost:3001/api/admins/${selectedAdmin._id}`,
         { password: newPassword },
@@ -171,7 +174,8 @@ function Page() {
   // Function to handle admin deletion
   const handleDeleteAdmin = async (adminId) => {
     try {
-      const apiKey = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
+      const apiKey =
+        "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
       await axios.delete(`http://localhost:3001/api/admins/${adminId}`, {
         headers: { kuchi: `${apiKey}` },
       });
@@ -182,29 +186,14 @@ function Page() {
   };
 
   return (
-    <div>
-      {/* Header */}
-      <div className="flex justify-between items-center bg-white py-6 px-10 rounded-lg shadow-lg mb-8 w-full">
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
-        <div className="flex items-center space-x-2">
-          <Image
-            src="/assets/logo.jpg"
-            alt="Profile"
-            width={150}
-            height={300}
-            className="w-10 h-10 rounded-full"
-          />
-          <span>Nikhil Mitra</span>
-        </div>
-      </div>
-
+    <div className="p-10 bg-gray-100">
       {/* Admin Table */}
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-6">Admin</h2>
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Admin</h2>
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <table className="w-full text-left border-collapse">
+          <table className="w-full text-left border-collapse font-medium font-montserrat text-sm">
             <thead>
               <tr className="text-gray-600">
                 <th className="py-3 border-b">Name</th>
@@ -253,8 +242,8 @@ function Page() {
 
       {/* Add Admin Form */}
       <div>
-        <div className="bg-white p-6 rounded-lg shadow-lg mt-6">
-          <h3 className="text-xl font-semibold text-purple-600 mb-4">
+        <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+          <h3 className="text-xl font-montserrat font-semibold text-purple-600 mb-4">
             Add Admin
           </h3>
           {errorMessage && <p className="text-red-500">{errorMessage}</p>}
@@ -264,59 +253,59 @@ function Page() {
             className="grid grid-cols-1 md:grid-cols-2 gap-4"
           >
             <div>
-              <label className="block text-gray-700">Name</label>
+              <label className="block text-gray-700 font-medium font-montserrat text-sm">Name</label>
               <input
                 type="text"
                 name="adminName"
                 value={formData.adminName}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                className="mt-1 block w-full border border-gray-300 rounded-lg p-2 font-medium font-montserrat text-sm"
               />
             </div>
             <div>
-              <label className="block text-gray-700">Email</label>
+              <label className="block text-gray-700 font-medium font-montserrat text-sm">Email</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                className="mt-1 block w-full border border-gray-300 rounded-lg p-2 font-medium font-montserrat text-sm"
               />
             </div>
             <div>
-              <label className="block text-gray-700">Password</label>
+              <label className="block text-gray-700 font-medium font-montserrat text-sm">Password</label>
               <input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                className="mt-1 block w-full border border-gray-300 rounded-lg p-2 font-medium font-montserrat text-sm"
               />
             </div>
             <div>
-              <label className="block text-gray-700">Confirm Password</label>
+              <label className="block text-gray-700 font-medium font-montserrat text-sm">Confirm Password</label>
               <input
                 type="password"
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                className="mt-1 block w-full border border-gray-300 rounded-lg p-2 font-medium font-montserrat text-sm"
               />
             </div>
             <div>
-              <label className="block text-gray-700">Role</label>
+              <label className="block text-gray-700 font-medium font-montserrat text-sm">Role</label>
               <input
                 type="text"
                 name="role"
                 value={formData.role}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                className="mt-1 block w-full border border-gray-300 rounded-lg p-2 font-medium font-montserrat text-sm"
               />
             </div>
             <div className="col-span-full">
               <button
                 type="submit"
-                className="bg-purple-600 text-white px-4 py-2 rounded-lg"
+                className="bg-purple-600 text-white px-4 py-2 rounded-md font-medium font-montserrat text-sm"
               >
                 Add Admin
               </button>
@@ -329,23 +318,25 @@ function Page() {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-            <h2 className="text-xl font-semibold mb-4">
+            <h2 className="text-xl font-semibold mb-4 font-montserrat">
               Change Password for {selectedAdmin?.adminName}
             </h2>
             {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-            {successMessage && <p className="text-green-500">{successMessage}</p>}
+            {successMessage && (
+              <p className="text-green-500">{successMessage}</p>
+            )}
             <div>
-              <label className="block text-gray-700">New Password</label>
+              <label className="block text-gray-700 font-medium font-montserrat text-sm">New Password</label>
               <input
                 type="password"
                 name="newPassword"
                 value={passwordData.newPassword}
                 onChange={handlePasswordChange}
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                className="mt-1 block w-full border border-gray-300 rounded-lg p-2 font-medium font-montserrat text-sm"
               />
             </div>
             <div>
-              <label className="block text-gray-700 mt-4">
+              <label className="block text-gray-700 mt-4 font-medium font-montserrat text-sm">
                 Confirm New Password
               </label>
               <input
@@ -353,19 +344,19 @@ function Page() {
                 name="confirmNewPassword"
                 value={passwordData.confirmNewPassword}
                 onChange={handlePasswordChange}
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                className="mt-1 block w-full border border-gray-300 rounded-lg p-2 font-medium font-montserrat text-sm"
               />
             </div>
             <div className="mt-4 flex justify-end">
               <button
                 onClick={handleCloseModal}
-                className="text-gray-600 px-4 py-2 mr-2"
+                className="text-gray-600 px-4 py-2 mr-2 font-medium font-montserrat text-sm"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSubmitPassword}
-                className="bg-purple-600 text-white px-4 py-2 rounded-lg"
+                className="bg-purple-600 text-white px-4 py-2 rounded-md font-medium font-montserrat text-sm"
               >
                 Submit
               </button>

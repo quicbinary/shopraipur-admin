@@ -64,9 +64,8 @@ const Shops = () => {
   return (
     <div className="bg-gray-100 h-screen">
       <div className="flex-grow p-10">
-        <Header />
         <div className="bg-white shadow-md rounded-lg p-6 mt-8">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          <h3 className="text-lg font-semibold font-montserrat text-purple-500 mb-4">
             Shops List
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -84,8 +83,8 @@ const Shops = () => {
                     height={200}
                   />
                 </Link>
-                <h3 className="text-lg font-semibold">{shop.shopName}</h3>
-                <div className="text-gray-500 flex items-center mt-2">
+                <h3 className="text-lg font-semibold font-montserrat">{shop.shopName}</h3>
+                <div className="text-gray-500 font-medium font-montserrat flex items-center mt-2">
                   <FaMapMarkerAlt className="text-red-500 mr-2" />
                   <span>{shop.area}</span>
                 </div>

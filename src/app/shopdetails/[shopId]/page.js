@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";  // Correct hook to get dynamic params
 import Head from "next/head";
+import { MdDelete } from "react-icons/md";
 import Image from "next/image";
 
 export default function ShopDetails() {
@@ -89,7 +90,7 @@ export default function ShopDetails() {
 
   if (loading) return <div>Loading...</div>;  // Show loading text while data is being fetched
   if (error) return <div>{error}</div>;  // Show error message if fetching fails
-  if (!shop) return <div>No shop data available</div>;  // Show if no shop data is returned
+  if (!shop) return <div className="font-medium font-montserrat">No shop data available</div>;  // Show if no shop data is returned
 
   return (
     <>
@@ -106,10 +107,8 @@ export default function ShopDetails() {
       </Head>
       <div className="bg-gray-100 flex min-h-screen">
         <div className="flex-1 p-8">
-          {/* Header */}
-         <Header/>
           {/* Shop Details */}
-          <div className="bg-white shadow-lg mt-7 rounded-lg p-6 mb-10">
+          <div className="bg-white shadow-md mt-7 rounded-lg p-6 mb-10">
             <div className="flex items-center space-x-4">
               <Image
                 src={shop.shopLogo}
@@ -119,48 +118,48 @@ export default function ShopDetails() {
                 className="w-20 h-20 rounded"
               />
               <div>
-                <h2 className="shop-name text-2xl font-semibold">{shop.shopName}</h2>
-                <p className="owner-name text-gray-500">{shop.ownerName}</p>
+                <h2 className="shop-name text-2xl font-semibold text-purple-600 font-montserrat">{shop.shopName}</h2>
+                <p className="owner-name text-gray-500 font-medium font-montserrat">{shop.ownerName}</p>
               </div>
             </div>
           </div>
 
           {/* Information Section */}
           <div className="bg-white shadow-lg mb-10 rounded-lg p-6">
-            <h3 className="text-xl font-semibold mb-6">Information</h3>
+            <h3 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-700">
               <div>
-                <h4 className="font-semibold">Shop Name</h4>
-                <p className="shop-name text-gray-500">{shop.shopName}</p>
+                <h4 className="font-semibold font-montserrat">Shop Name</h4>
+                <p className="shop-name text-gray-500 font-medium font-montserrat">{shop.shopName}</p>
               </div>
               <div>
-                <h4 className="font-semibold">Owner Name</h4>
-                <p className="owner-name text-gray-500">{shop.ownerName}</p>
+                <h4 className="font-semibold font-montserrat">Owner Name</h4>
+                <p className="owner-name text-gray-500 font-medium font-montserrat">{shop.ownerName}</p>
               </div>
               <div>
-                <h4 className="font-semibold">GST Number</h4>
-                <p id="gst" className="text-gray-500">{shop.gst}</p>
+                <h4 className="font-semibold font-montserrat">GST Number</h4>
+                <p id="gst" className="text-gray-500 font-medium font-montserrat">{shop.gst}</p>
               </div>
               <div>
-                <h4 className="font-semibold">Phone Number</h4>
-                <p id="phone" className="text-gray-500">{shop.phoneNumber}</p>
+                <h4 className="font-semibold  font-montserrat">Phone Number</h4>
+                <p id="phone" className="text-gray-500 font-medium font-montserrat">{shop.phoneNumber}</p>
               </div>
               <div className="col-span-2">
-                <h4 className="font-semibold">Area</h4>
-                <p id="area" className="text-gray-500">{shop.area}</p>
+                <h4 className="font-semibold font-montserrat">Area</h4>
+                <p id="area" className="text-gray-500 font-medium font-montserrat">{shop.area}</p>
               </div>
             </div>
           </div>
 
           {/* Product Section */}
           <div className="bg-white shadow-lg rounded-lg p-6 mt-10">
-            <h3 className="text-xl font-semibold mb-6">Products</h3>
+            <h3 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Products</h3>
 
             {/* Product Table */}
             <div className="overflow-x-auto">
               <table className="w-full text-left table-auto">
                 <thead>
-                  <tr className="border-b">
+                  <tr className="border-b font-medium font-montserrat">
                     <th className="p-4 text-gray-600 font-medium">Product Image</th>
                     <th className="p-4 text-gray-600 font-medium">Product Name</th>
                     <th className="p-4 text-gray-600 font-medium">Product Category</th>
@@ -169,7 +168,7 @@ export default function ShopDetails() {
                 </thead>
                 <tbody>
                   {products && products.map((product) => (
-                    <tr className="border-b" key={product._id}>
+                    <tr className="border-b font-medium font-montserrat" key={product._id}>
                       <td className="p-4">
                         <Image
                           src={product.productImages[0]}  // Assuming the image is under the field 'productImage'
@@ -183,10 +182,10 @@ export default function ShopDetails() {
                       <td className="p-4 text-gray-700">{product.productCategory}</td>
                       <td className="p-4">
                         <button 
-                          className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600"
+                          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                           onClick={() => deleteProduct(product._id)}
                         >
-                          Delete
+                          <MdDelete className="text-2xl" />
                         </button>
                       </td>
                     </tr>
@@ -198,24 +197,5 @@ export default function ShopDetails() {
         </div>
       </div>
     </>
-  );
-}
-
-// Header component
-function Header() {
-  return (
-    <div className="flex justify-between items-center bg-white p-5 rounded-lg shadow-lg mb-8 w-full">
-      <h1 className="text-2xl font-semibold text-gray-800">Shop</h1>
-      <div className="flex items-center space-x-2">
-        <Image
-          src="/assets/logo.jpg"
-          alt="Profile"
-          width={150}
-          height={300}
-          className="w-10 h-10 rounded-full"
-        />
-        <span className="font-semibold text-gray-800">Nikhil Mitra</span>
-      </div>
-    </div>
   );
 }

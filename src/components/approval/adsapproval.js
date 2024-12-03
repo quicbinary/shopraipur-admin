@@ -111,18 +111,18 @@ export default function AdsApproval() {
   };
 
   return (
-    <div className="pt-10">
+    <div>
       <div className="bg-white shadow-md rounded-lg p-8">
-        <h1 className="text-2xl font-bold mb-6">Ads Approval</h1>
+        <h1 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Ads Approval</h1>
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1 font-montserrat">
               Ad Type
             </label>
             <select
               value={adType}
               onChange={(e) => setAdType(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full font-medium font-montserrat px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
               <option value="Banner Ad">Homepage Banner</option>
               <option value="Story Ad">Story Ad</option>
@@ -131,24 +131,24 @@ export default function AdsApproval() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1 font-montserrat">
               From
             </label>
             <input
               type="date"
-              className="w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="font-montserrat w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
               value={fromDate}
               onChange={(e) => setFromDate(e.target.value)}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1 font-montserrat">
               To
             </label>
             <input
               type="date"
-              className="w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="font-montserrat w-40 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
               value={toDate}
               onChange={(e) => setToDate(e.target.value)}
             />
@@ -168,14 +168,15 @@ export default function AdsApproval() {
                       width="100%"
                       height="auto"
                       controls
-                      className="rounded-md border h-60"
+                      className="rounded-md border h-60 font-montserrat"
                     >
                       <source src={ad.url} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   </div>
                 ) : (
-                  <div className="shadow p-4">
+                  // promoted products start here
+                  <div className="shadow-md max-w-64 p-4 font-medium font-montserrat">
                     <Image
                       src={
                         adType === "Promoted Products"
@@ -185,7 +186,7 @@ export default function AdsApproval() {
                       alt="Ad image"
                       width={adType === "Promoted Products" ? 100 : 200}
                       height={adType === "Promoted Products" ? 200 : 400}
-                      className="w-60 h-50 rounded-md border"
+                      className="w-60 h-50 rounded-md border font-medium font-montserrat"
                     />
                     {adType === "Promoted Products" && (
                       <>
@@ -196,13 +197,13 @@ export default function AdsApproval() {
                   </div>
                 )}
 
-                <div className="flex justify-center items-center gap-6">
-                  <button className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-purple-600">
+                <div className="flex justify-between items-center gap-4">
+                  <button className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-purple-600 font-montserrat font-medium">
                     View
                   </button>
                   <button
                     onClick={() => handleApprove(ad._id)}
-                    className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-purple-600"
+                    className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-purple-600 font-montserrat font-medium"
                   >
                     Approve
                   </button>
@@ -214,7 +215,7 @@ export default function AdsApproval() {
                   </button>
                   <button
                     onClick={() => handleDownload(ad.url, ad.type)}
-                    className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-blue-600"
+                    className="px-4 py-2 bg-purple-500 text-white rounded-md shadow hover:bg-blue-600 font-montserrat font-medium"
                   >
                     Download
                   </button>
@@ -222,7 +223,7 @@ export default function AdsApproval() {
 
                 <div className="flex gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm text-gray-700 mb-1 font-medium font-montserrat">
                       Select Start Date
                     </label>
                     <input
@@ -235,7 +236,7 @@ export default function AdsApproval() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium font-montserrat text-gray-700 mb-1">
                       Select End Date
                     </label>
                     <input
@@ -252,7 +253,7 @@ export default function AdsApproval() {
             </div>
           ))
         ) : (
-          <div className="text-center text-lg text-gray-500">
+          <div className="text-center text-lg text-gray-500 font-medium font-montserrat">
             No ads for approval
           </div>
         )}

@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
@@ -137,17 +136,17 @@ export default function ShopApproval() {
   };
 
   return (
-    <div className="p-6 w-full bg-white rounded-xl">
+    <div className="p-6 w-full bg-white rounded-lg shadow-md">
       {/* Filter Section */}
-      <div className="bg-white px-10 py-10 rounded-lg shadow-lg mb-8 w-full">
-        <h2 className="text-lg font-semibold mb-4">Filter</h2>
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-10">
+        <h2 className="text-lg mb-4 text-purple-600 font-semibold font-montserrat">Filter</h2>
+      <div className="bg-white px-10 mb-8 w-full">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm text-gray-700 font-medium font-montserrat">
               Select Category
             </label>
             <select
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
@@ -161,23 +160,23 @@ export default function ShopApproval() {
           </div>
           <div className="grid grid-cols-2 gap-8">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm text-gray-700 font-medium font-montserrat">
                 From
               </label>
               <input
                 type="date"
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium font-montserrat text-gray-700">
                 To
               </label>
               <input
                 type="date"
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
               />
@@ -187,7 +186,7 @@ export default function ShopApproval() {
       </div>
 
       {/* Shop Approval Section */}
-      <h2 className="text-lg font-bold mb-4">Shop Approval</h2>
+      <h2 className="text-lg font-semibold font-montserrat mb-4 text-purple-600 ">Shop Approval</h2>
       {shops.length > 0 ? (
         shops.map((shop) => (
           <div
@@ -215,19 +214,19 @@ export default function ShopApproval() {
 
             <div className="flex space-x-10 items-center justify-between">
               <button
-                className="px-10 py-2 bg-purple-500 text-white rounded-lg"
+                className="px-10 py-2 bg-purple-500 text-white rounded-lg font-medium font-montserrat"
                 onClick={() => openModal(shop)}
               >
                 View
               </button>
               <button
-                className="px-10 py-2 bg-purple-500 text-white rounded-lg"
+                className="px-10 py-2 bg-purple-500 text-white rounded-lg font-medium font-montserrat"
                 onClick={() => approveShop(shop._id)}
               >
                 Approve
               </button>
               <button
-                className="px-10 py-2 bg-purple-500 text-white rounded-lg"
+                className="px-10 py-2 bg-purple-500 text-white rounded-lg font-medium font-montserrat"
                 onClick={() => deleteShop(shop._id)}
               >
                 Delete
@@ -236,7 +235,7 @@ export default function ShopApproval() {
           </div>
         ))
       ) : (
-        <div className="bg-white p-6 rounded-lg text=-center">
+        <div className="bg-white p-6 rounded-lg text=-center font-medium font-montserrat">
           No shops pending approval
         </div>
       )}
@@ -250,7 +249,7 @@ export default function ShopApproval() {
       {/* Previous Button */}
       <button
         disabled={currentPage === 1}
-        className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600"
+        className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600 font-medium font-montserrat"
         onClick={() => setCurrentPage(currentPage - 1)}
       >
         &lt;
@@ -279,7 +278,7 @@ export default function ShopApproval() {
       {/* Next Button */}
       <button
         disabled={currentPage === totalPages}
-        className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600"
+        className="px-3 py-1 border border-gray-300 rounded-lg text-gray-600 font-medium font-montserrat"
         onClick={() => setCurrentPage(currentPage + 1)}
       >
         &gt;
@@ -310,7 +309,7 @@ function Modal({ shop, onClose }) {
 
         {/* Shop Logo and Name Centered */}
         <div className="flex flex-col items-center mb-6">
-          <img
+          <Image
             src={shop.shopLogo}
             alt={`${shop.shopName} Logo`}
             className="w-24 h-24 rounded-full object-cover mb-4"

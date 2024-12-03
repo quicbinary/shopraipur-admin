@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { MdDelete } from "react-icons/md";
+import { FaRegEdit } from "react-icons/fa";
 import Image from "next/image";
 
 export default function Page() {
@@ -300,19 +302,19 @@ export default function Page() {
   return (
     <div>
       {/* Main UI */}
-      <div className="flex-grow p-8">
+      <div className="flex-grow p-10 bg-gray-100 h-screen">
         <div className="bg-white shadow-md rounded-lg p-6">
-          <h3 className="text-lg font-semibold mb-4">Category List</h3>
+          <h3 className="text-lg font-semibold mb-4 text-purple-600 font-montserrat">Category List</h3>
 
           <div className="flex justify-end space-x-4 mb-4">
             <button
               onClick={handleOpenAddModal}
-              className="bg-purple-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-purple-600 transition"
+              className="bg-purple-500 text-white px-6 py-2 rounded-md font-medium hover:bg-purple-600 transition font-montserrat"
             >
               Add Category
             </button>
             <button
-                    className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                    className="bg-purple-500 text-white px-4 py-1 rounded hover:bg-purple-600 font-montserrat font-medium"
                     onClick={() => openAddSubCategoryModal()}
                   >
                     Add Subcategory
@@ -320,10 +322,10 @@ export default function Page() {
           </div>
 
           {/* Category Table */}
-          <table className="w-full text-left rounded-lg">
+          <table className="w-full text-left rounded-lg font-medium font-montserrat">
             {/* Table Header */}
             <thead>
-              <tr className="text-gray-600 border-b">
+              <tr className="text-gray-600 border-b font-montserrat">
                 <th className="px-4 py-2">S. No.</th>
                 <th className="px-4 py-2">Category Image</th>
                 <th className="px-4 py-2">Category Name</th>
@@ -336,7 +338,7 @@ export default function Page() {
               {categories.map((category, index) => (
                 <tr
                   key={category._id}
-                  className="border-b hover:bg-gray-50"
+                  className="border-b hover:bg-gray-50 font-montserrat"
                 >
                   <td className="px-4 py-2">{index + 1}</td>
                   <td className="px-4 py-2">
@@ -349,7 +351,7 @@ export default function Page() {
                         className="w-16 h-16 rounded-lg"
                       />
                     ) : (
-                      <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
+                      <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 font-montserrat">
                         No Image
                       </div>
                     )}
@@ -362,16 +364,16 @@ export default function Page() {
                   </td>
                   <td className="px-4 py-2 flex items-center space-x-2">
                     <button
-                      className="bg-purple-500 text-white px-4 py-1 rounded hover:bg-purple-600"
+                      className="bg-purple-500 text-white px-2 py-2 mt-3 rounded hover:bg-purple-600"
                       onClick={() => handleOpenEditModal(category)}
                     >
-                      Edit
+                      <FaRegEdit className="text-2xl"/>
                     </button>
                     <button
-                      className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
-                      onClick={() => deleteCategory(category._id)}
+                      className="bg-red-500 text-white px-2 py-2 mt-3 rounded hover:bg-red-600"
+                      onClick={() => deleteCategory(category._id)} 
                     >
-                      Delete
+                      <MdDelete className="text-2xl" />
                     </button>
                   </td>
                 </tr>
@@ -585,28 +587,28 @@ function AddSubCategoryModal({
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40"
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40 overflow-auto"
       onClick={onClose}
     >
       <div
-        className="max-w-3xl mx-auto my-8 p-6 bg-white rounded-lg shadow-lg relative z-50"
+        className="my-8 max-h-full w-full max-w-lg bg-white rounded-lg shadow-lg relative z-50 overflow-y-auto"
         onClick={(e) => e.stopPropagation()} // Prevent click events from propagating to the background
       >
         {/* Close Button */}
         <button
-          className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
+          className="absolute top-4 right-4 text-purple-600 hover:text-purple-700"
           onClick={onClose}
         >
           &#x2715;
         </button>
-
-        {/* Modal Title */}
-        <h2 className="text-2xl font-bold mb-6 text-center">
+  
+        {/* Modal Title Add Subcategory */}
+        <h2 className="text-2xl pt-6 text-purple-600 font-bold mb-6 text-center">
           Add Subcategory
         </h2>
-
+  
         {/* Subcategory Form */}
-        <form onSubmit={onSubmit} className="grid gap-6">
+        <form onSubmit={onSubmit} className="grid gap-6 px-6 py-4">
           {/* Category Selection */}
           <div>
             <label className="block text-sm font-medium mb-2">
@@ -626,7 +628,7 @@ function AddSubCategoryModal({
               ))}
             </select>
           </div>
-
+  
           {/* Subcategory Name */}
           <div>
             <label className="block text-sm font-medium mb-2">
@@ -641,14 +643,14 @@ function AddSubCategoryModal({
               required
             />
           </div>
-
+  
           {/* Existing Subcategories */}
           {selectedCategory && selectedCategory.subcategories.length > 0 && (
             <div>
               <label className="block text-sm font-medium mb-2">
                 Existing Subcategories
               </label>
-              <ul className="border border-gray-300 rounded-lg p-4">
+              <ul className="border border-gray-300 rounded-lg p-4 max-h-40 overflow-y-auto">
                 {selectedCategory.subcategories.map((subCategory, index) => (
                   <li
                     key={index}
@@ -660,16 +662,16 @@ function AddSubCategoryModal({
                       onClick={() =>
                         handleDeleteSubCategory(selectedCategoryId, subCategory)
                       }
-                      className="text-red-600 hover:text-red-800"
+                      className="text-red-500 hover:text-red-700"
                     >
-                      Delete
+                      <MdDelete className="text-2xl" />
                     </button>
                   </li>
                 ))}
               </ul>
             </div>
           )}
-
+  
           {/* Submit Button */}
           <div>
             <button
@@ -683,4 +685,4 @@ function AddSubCategoryModal({
       </div>
     </div>
   );
-}
+}  

@@ -132,21 +132,21 @@ export default function ProductApproval() {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg">
-      <h2 className="text-lg font-bold mb-4">Product Approval</h2>
+    <div className="bg-white p-8 rounded-lg shadow-md">
+      <h2 className="text-lg font-semibold font-montserrat mb-4 text-purple-600">Product Approval</h2>
 
       {/* Filter Section */}
       <div className="grid grid-cols-4 gap-6 mb-8">
         {/* Category Filter */}
         <div>
-          <label className="block font-medium text-black">
+          <label className="block font-medium font-montserrat text-black ">
             Select Category
           </label>
           <select
             name="category"
             value={filters.category}
             onChange={handleFilterChange}
-            className="block w-full p-2 border border-gray-300 rounded-lg"
+            className="block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
           >
             <option value="">Select Category</option>
             {categories.map((category) => (
@@ -160,12 +160,12 @@ export default function ProductApproval() {
         {/* Subcategory Filter */}
         {filters.category && (
           <div>
-            <label className="block font-medium text-black">Subcategory</label>
+            <label className="block font-medium font-montserrat text-black">Subcategory</label>
             <select
               name="subcategory"
               value={filters.subcategory}
               onChange={handleFilterChange}
-              className="block w-full p-2 border border-gray-300 rounded-lg"
+              className="block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
             >
               <option value="">Select Subcategory</option>
               {subcategories.map((subcategory, index) => (
@@ -179,23 +179,23 @@ export default function ProductApproval() {
 
         {/* Date Range Filters */}
         <div>
-          <label className="block font-medium text-black">From Date</label>
+          <label className="block font-medium font-montserrat text-black">From Date</label>
           <input
             type="date"
             name="fromDate"
             value={filters.fromDate}
             onChange={handleFilterChange}
-            className="block w-full p-2 border border-gray-300 rounded-lg"
+            className="block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
           />
         </div>
         <div>
-          <label className="block font-medium text-black">To Date</label>
+          <label className="block font-medium font-montserrat text-black">To Date</label>
           <input
             type="date"
             name="toDate"
             value={filters.toDate}
             onChange={handleFilterChange}
-            className="block w-full p-2 border border-gray-300 rounded-lg"
+            className="block w-full p-2 border border-gray-300 rounded-lg font-medium font-montserrat"
           />
         </div>
       </div>
@@ -223,19 +223,19 @@ export default function ProductApproval() {
               </div>
 
               <div className="flex flex-col justify-around lg:w-3/4">
-                <h3 className="text-xl font-semibold mb-2">
+                <h3 className="text-xl font-medium font-montserrat mb-2">
                   {product.productName}
                 </h3>
-                <p className="text-sm text-gray-600 line-clamp-2 mb-4">
+                <p className="text-sm text-gray-600 line-clamp-2 mb-4 font-medium font-montserrat">
                   {product.productDescription?.length > 40
                     ? `${product.productDescription.substring(0, 40)}...`
                     : product.productDescription}
                 </p>
                 <div className="flex items-center mb-4">
-                  <span className="text-lg font-bold text-purple-600">
+                  <span className="text-lg font-medium font-montserrat text-purple-600">
                     ₹{product.productDiscountedPrice}
                   </span>
-                  <span className="text-sm text-gray-500 ml-2 line-through">
+                  <span className="text-sm text-gray-500 ml-2 line-through font-medium font-montserrat">
                     ₹{product.productOriginalPrice}
                   </span>
                 </div>
@@ -246,21 +246,21 @@ export default function ProductApproval() {
               <div className="flex gap-6 mt-4 items-center">
                 <button
                   onClick={() => handleViewProduct(product)}
-                  className="px-4 py-2 h-10 bg-purple-500 text-white rounded-lg"
+                  className="px-4 py-2 h-10 bg-purple-500 text-white rounded-lg font-medium font-montserrat"
                 >
                   View
                 </button>
 
                 <button
                   onClick={() => handleApproveProduct(product._id)}
-                  className="px-4 py-2 h-10 bg-purple-500 text-white rounded-lg"
+                  className="px-4 py-2 h-10 bg-purple-500 text-white rounded-lg font-medium font-montserrat"
                 >
                   Approve
                 </button>
 
                 <button
                   onClick={() => handleDeleteProduct(product._id)}
-                  className="px-4 py-2 h-10 bg-purple-500 text-white rounded-lg"
+                  className="px-4 py-2 h-10 bg-purple-500 text-white rounded-lg font-medium font-montserrat"
                 >
                   <FaTrashAlt />
                 </button>
@@ -268,7 +268,7 @@ export default function ProductApproval() {
             </div>
           ))
         ) : (
-          <p>No products available for approval.</p>
+          <p className="font-medium font-montserrat">No products available for approval.</p>
         )}
       </div>
 
