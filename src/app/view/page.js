@@ -92,7 +92,7 @@ export default function Dashboard() {
             {selectedAdType === "Shorts Ad" && (
               <section className="mb-12">
                 <h2 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Short Video Views</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
                   {adsData?.length > 0 ? (
                     adsData.map((video) => (
                       <div
@@ -102,7 +102,7 @@ export default function Dashboard() {
                         <video
                           src={video.url}
                           controls
-                          className="w-32 h-32 rounded-lg mb-4"
+                          className="w-44 h-44 rounded-lg mb-4"
                         ></video>
                         <div className="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium font-montserrat mb-2">
                           View Count
@@ -120,11 +120,11 @@ export default function Dashboard() {
                 </div>
               </section>
             )}
-            {/* Story ad section start here */}
+       {/* Story ad section start here */}
             {selectedAdType === "Story Ad" && (
               <section className="mb-12">
                 <h2 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Story Video Views</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
                   {adsData?.length > 0 ? (
                     adsData.map((video) => (
                       <div
@@ -134,7 +134,7 @@ export default function Dashboard() {
                         <video
                           src={video.url}
                           controls
-                          className="w-32 h-32 rounded-lg mb-4"
+                          className="w-44 h-44 rounded-lg mb-4"
                         ></video>
                         <div className="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium font-montserrat mb-2">
                           View Count
@@ -200,14 +200,14 @@ export default function Dashboard() {
                     adsData.map((ad) => (
                       <div
                         key={ad._id}
-                        className="bg-white shadow-md rounded-lg p-4 text-center border"
+                        className="bg-white shadow-md w-full rounded-lg p-4 text-center border"
                       >
                         <Image
                           src={ad.url || "/placeholder.jpg"}
                           alt={ad.title || "BannerAd"}
                           width={300}
                           height={200}
-                          className="object-cover w-full rounded-md mb-4"
+                          className="object-fill w-64 h-36 rounded-md mb-4"
                         />
                         <p className="text-md font-semibold text-purple-600 font-montserrat">
                           {ad.views.toLocaleString()} Views
