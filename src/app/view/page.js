@@ -58,10 +58,10 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-50 p-10">
       {/* Main Content */}
       <main>
-      {/* Header */}
-      <div className="w-full mb-6">
-      <Header title={"Views"}/>
-      </div>
+        {/* Header */}
+        <div className="w-full mb-6">
+          <Header title={"Views"} />
+        </div>
         {/* Select Section */}
         <div className="bg-white p-6 mb-8 rounded-lg shadow-md">
           <label
@@ -90,141 +90,88 @@ export default function Dashboard() {
         ) : (
           <>
             {selectedAdType === "Shorts Ad" && (
-              <section className="mb-12">
-                <h2 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Short Video Views</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {adsData?.length > 0 ? (
-                    adsData.map((video) => (
-                      <div
-                        key={video._id}
-                        className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center justify-center"
-                      >
-                        <video
-                          src={video.url}
-                          controls
-                          className="w-32 h-32 rounded-lg mb-4"
-                        ></video>
-                        <div className="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium font-montserrat mb-2">
-                          View Count
-                        </div>
-                        <span className="text-md font-semibold text-purple-600 font-montserrat">
-                          {video.views.toLocaleString()}
-                        </span>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-center text-gray-500 font-medium font-montserrat text-sm">
-                      No Short videos available
-                    </p>
-                  )}
-                </div>
-              </section>
+              <AdSection
+                title="Short Video Views"
+                adsData={adsData}
+                type="Short Video"
+                isVideo={true}
+              />
             )}
-            {/* Story ad section start here */}
+
             {selectedAdType === "Story Ad" && (
-              <section className="mb-12">
-                <h2 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Story Video Views</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {adsData?.length > 0 ? (
-                    adsData.map((video) => (
-                      <div
-                        key={video._id}
-                        className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center justify-center"
-                      >
-                        <video
-                          src={video.url}
-                          controls
-                          className="w-32 h-32 rounded-lg mb-4"
-                        ></video>
-                        <div className="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium font-montserrat mb-2">
-                          View Count
-                        </div>
-                        <span className="text-md font-semibold text-purple-600 font-montserrat">
-                          {video.views.toLocaleString()}
-                        </span>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-center text-gray-500 font-medium font-montserrat text-sm">
-                      No Story videos available
-                    </p>
-                  )}
-                </div>
-              </section>
+              <AdSection
+                title="Story Video Views"
+                adsData={adsData}
+                type="Story Video"
+                isVideo={true}
+              />
             )}
-             {/* Promoted Product started here   */}
+
             {selectedAdType === "Promoted Products" && (
-              <section>
-                <h2 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Promoted Products</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {adsData.length > 0 ? (
-                    adsData.map((ad) => (
-                      <div
-                        key={ad._id}
-                        className="bg-white shadow-md rounded-lg p-4 text-center border"
-                      >
-                        <div className="relative w-full h-40 mb-4">
-                          <Image
-                            src={
-                              ad.productId?.productImages?.[0] ||
-                              "/placeholder.jpg"
-                            }
-                            alt={ad.productId?.productName || "Product"}
-                            width={150}
-                            height={150}
-                            className="object-cover w-full h-full rounded-md font-medium font-montserrat text-sm"
-                          />
-                        </div>
-                        <h2 className="text-sm font-bold text-gray-800">
-                          {ad.productId?.productName || "Unknown Product"}
-                        </h2>
-                        <p className="text-md font-semibold text-gray-800 mb-4 font-montserrat">
-                          {ad.views.toLocaleString()} Views
-                        </p>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-center text-gray-500 font-medium font-montserrat text-sm">
-                      No promoted products available
-                    </p>
-                  )}
-                </div>
-              </section>
+              <AdSection
+                title="Promoted Products"
+                adsData={adsData}
+                type="Promoted Products"
+              />
             )}
 
             {selectedAdType === "Banner Ad" && (
-              <section>
-                <h2 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">Banner Ads</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {adsData.length > 0 ? (
-                    adsData.map((ad) => (
-                      <div
-                        key={ad._id}
-                        className="bg-white shadow-md rounded-lg p-4 text-center border"
-                      >
-                        <Image
-                          src={ad.url || "/placeholder.jpg"}
-                          alt={ad.title || "BannerAd"}
-                          width={300}
-                          height={200}
-                          className="object-cover w-full rounded-md mb-4"
-                        />
-                        <p className="text-md font-semibold text-purple-600 font-montserrat">
-                          {ad.views.toLocaleString()} Views
-                        </p>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-center text-gray-500 font-medium font-montserrat text-sm">
-                      No banner ads available
-                    </p>
-                  )}
-                </div>
-              </section>
+              <AdSection
+                title="Banner Ads"
+                adsData={adsData}
+                type="Banner Ads"
+              />
             )}
           </>
         )}
       </main>
     </div>
+  );
+}
+
+
+function AdSection({ title, adsData, type, isVideo = false }) {
+  return (
+    <section className="mb-12">
+      <h2 className="text-xl font-semibold mb-6 text-purple-600 font-montserrat">
+        {title}
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {adsData?.length > 0 ? (
+          adsData.map((ad) => (
+            <div
+              key={ad._id}
+              className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center justify-center"
+            >
+              {isVideo ? (
+                <video
+                  src={ad.url}
+                  controls
+                  className="w-32 h-32 rounded-lg mb-4"
+                ></video>
+              ) : (
+                <Image
+                  src={ad.url || ad.productId.productImages[0]}
+                  alt={ad.title || "Ad"}
+                  width={150}
+                  height={150}
+                  className={`object-fill h-36 w-full rounded-md mb-4`}
+                />
+              )}
+              <div className="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium font-montserrat mb-2">
+                {type === "Promoted Products" ? ad.productName : "View Count"}
+              </div>
+              <span className="text-md font-semibold text-purple-600 font-montserrat">
+                {ad.views?.toLocaleString() || "0"} Views
+              </span>
+            </div>
+          ))
+        ) : (
+          <p className="text-center text-gray-500 font-medium font-montserrat text-sm">
+            No {type} available
+          </p>
+        )}
+      </div>
+    </section>
   );
 }

@@ -1,7 +1,6 @@
 // components/Header.js
 "use client";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
 export default function Header({ title }) {
   const [user, setUser] = useState("");
