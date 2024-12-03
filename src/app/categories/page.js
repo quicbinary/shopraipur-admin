@@ -306,7 +306,7 @@ export default function Page() {
       <div className="flex-grow p-10 bg-gray-100 h-screen">
        {/* Header */}
        <div className="felx w-full mb-6">
-      <Header/>
+      <Header title={"Categories"}/>
       </div>
         <div className="bg-white shadow-md rounded-lg p-6">
           <h3 className="text-lg font-semibold mb-4 text-purple-600 font-montserrat">Category List</h3>

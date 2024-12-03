@@ -60,7 +60,7 @@ export default function Dashboard() {
       <main>
       {/* Header */}
       <div className="w-full mb-6">
-      <Header/>
+      <Header title={"Views"}/>
       </div>
         {/* Select Section */}
         <div className="bg-white p-6 rounded-lg shadow-md">
