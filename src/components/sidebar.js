@@ -10,6 +10,7 @@ const Sidebar = () => {
 
   // Updated menu items with React Icon components
   const menuItems = [
+
     { path: "/dashboard", icon: <AiFillHome />, label: "Dashboard" },
     { path: "/categories", icon: <AiOutlineAppstore />, label: "Categories" },
     { path: "/approval", icon: <AiOutlineCheckCircle />, label: "Approval" },
@@ -19,6 +20,7 @@ const Sidebar = () => {
     { path: "/ads", icon: <FaArrowUp />, label: "Ads" }, // Corrected icon
     { path: "/profile", icon: <FaUserCircle />, label: "My Profile" },
     { path: "/view", icon: <MdInsights />, label: "Views" },
+
   ];
 
   const navigateTo = (path) => {
