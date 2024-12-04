@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Selectaddtype from '@/components/ads/selectaddtype'
 import { useRouter } from 'next/navigation';
+import Sponsorship from '@/components/ads/sponsorship'
 
 
 export default function page() {
@@ -20,7 +21,7 @@ export default function page() {
 
   return (
     <div>
-    
+    <Sponsorship/>
     <Selectaddtype/>
     </div>
   )
