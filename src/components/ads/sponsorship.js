@@ -11,7 +11,7 @@ export default function AdsPage() {
       <div className="bg-white rounded-lg shadow-md p-10">
         {/* Sponsorship Ads Section */}
         <section>
-          <h2 className="text-2xl font-bold mb-6 text-purple-600">Sponsorship Ads</h2>
+          <h2 className="text-xl font-semibold mb-6 text-purple-600">Sponsorship Ads</h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             {/* Story Image */}
             <div className="space-y-4">
@@ -60,7 +60,7 @@ export default function AdsPage() {
 
          {/* Short Ads Section */}
          <section className="pt-10">
-          <h2 className="text-2xl font-bold mb-6 text-purple-600">Short Ads</h2>
+          <h2 className="text-xl font-semibold mb-6 text-purple-600">Short Ads</h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             {/* Story Image */}
             <div className="space-y-4">
@@ -109,7 +109,7 @@ export default function AdsPage() {
 
         {/* Story Ads Section */}
         <section className="pt-8">
-          <h2 className="text-2xl font-bold mb-6 text-purple-600">Story Ads</h2>
+          <h2 className="text-xl font-semibold mb-6 text-purple-600">Story Ads</h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             {/* Story Image */}
             <div className="space-y-4">
