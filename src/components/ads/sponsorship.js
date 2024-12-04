@@ -62,7 +62,6 @@ export default function AdsPage() {
         adType: formData.adType,
         startDate: formData.startDate,
         endDate: formData.endDate,
-        isApproved: false,
         shopId: "escrwc3rvwecf",
       };
 
