@@ -5,13 +5,26 @@ import Image from "next/image";
 import { FaTrashAlt, FaMapMarkerAlt } from "react-icons/fa"; // Import React Icons for trash and location
 import Link from "next/link"; // Import Link for navigation
 import Header from "@/components/header"
+import { useRouter } from "next/navigation";
 
 const Shops = () => {
+  const router = useRouter();
   const [shops, setShops] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [shopsPerPage] = useState(8);
   const API_KEY = "98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8";
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser)); // Set user data to state
+    } else {
+      router.push("/notfound"); // Redirect to 404 page if no user is found
+    }
+  }, [router]); // Ensure that router is used as a dependency
 
   useEffect(() => {
     const fetchShops = async () => {

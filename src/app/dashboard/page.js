@@ -2,26 +2,27 @@
 import { useEffect, useState } from "react";
 import axios from "axios"; // Importing axios
 import Header from "@/components/header";
+import { useRouter } from "next/navigation";
+
 export default function Dashboard() {
+  const router = useRouter();
   const [shopsCount, setShopsCount] = useState(null);
   const [productsCount, setProductsCount] = useState(null);
   const [totalProductViews, setTotalProductViews] = useState(0)
   const [error, setError] = useState(null);
-  const [notFound, setNotFound] = useState(false);
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      setUser(JSON.parse(storedUser)); // Set user data to state
     } else {
-      setNotFound(true); // Mark as not found if no user is stored
+      router.push("/notfound"); // Redirect to 404 page if no user is found
     }
-  }, []);
+  }, [router]); // Ensure that router is used as a dependency
 
-  if (notFound) {
-    return <p>404 - oops</p>; 
-  }
+  
 
   const API_KEY = '98bg54656b6f5b03xdfgxcfg55f42e78e922a345cdg5erc403dfa42f8'; 
 

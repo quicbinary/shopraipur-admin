@@ -15,14 +15,13 @@ const montserrat = Montserrat({
 export default function RootLayout({ children }) {
   const pathname = usePathname(); // Get the current path
 
-  const isLoginPage = pathname === "/login"; // Check if the current path is "/login"
+  const isLoginPage = pathname === "/login";
 
   return (
     <html lang="en">
       <body>
         <div className="flex">
-          {/* Render Sidebar only if the current path is not "/login" */}
-          {!isLoginPage && <Sidebar />}
+          {!isLoginPage  && <Sidebar />}
           <main className={`flex-1 ${isLoginPage ? "w-full" : ""}`}>
             {children}
           </main>
