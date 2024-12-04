@@ -16,7 +16,7 @@ export default function ProfileHeader() {
     if (storedUser) {
       setUser(JSON.parse(storedUser)); // Set user data to state
     } else {
-      // router.push("/notfound"); // Redirect to 404 page if no user is found
+      router.push("/notfound"); // Redirect to 404 page if no user is found
     }
   }, [router]);
 
