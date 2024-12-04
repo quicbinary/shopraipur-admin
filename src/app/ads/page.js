@@ -1,9 +1,13 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Selectaddtype from '@/components/ads/selectaddtype'
+<<<<<<< HEAD
 import { useRouter } from 'next/navigation';
 
 
+=======
+import Sponsorship from "@/components/ads/sponsorship"
+>>>>>>> 97cdc4c4601d54633ef71e9750096fab484ca0cb
 export default function page() {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -20,7 +24,7 @@ export default function page() {
 
   return (
     <div>
-    
+    <Sponsorship/>
     <Selectaddtype/>
     </div>
   )
